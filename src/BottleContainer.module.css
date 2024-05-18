@@ -1,0 +1,23 @@
+.container {
+  background-color: transparent;
+  width: 20vw;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.bottle {
+  margin: 1vh 1vw 1vh 1vw;
+}
+@media screen and (orientation: portrait) {
+  .container {
+    width: 50vw;
+  }
+  .bottle {
+    margin: 2vh 2vw 2vh 2vw;
+  }
+}
+.selected {
+  box-shadow: 0 0 25px lightgoldenrodyellow;
+}

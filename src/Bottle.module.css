@@ -1,0 +1,51 @@
+.bottleStyle {
+  border: 3px solid lightgray;
+  border-top: none;
+  border-radius: 8%;
+  background-color: "transparent";
+  width: 30px;
+  min-width: 20px;
+  height: 15vh;
+  min-height: 12vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+@media screen and (orientation:portrait) {
+  .bottleStyle {
+ /*   width: 10vw;
+    min-width: 20px;
+    max-width: 50px;*/
+  }
+}
+
+.bottleStyle div {
+  width: 100%;
+  /* flex:1;
+  height: 2vh;*/
+}
+
+.empty {
+  background-color: transparent;
+}
+
+.yellow {
+  color: black;
+  background-color: yellow;
+}
+.green {
+  background-color: green;
+}
+.blue {
+  background-color: blue;
+}
+.red {
+  background-color: red;
+}
+.purple {
+  background-color: purple;
+}
+.turquoise {
+  background-color: turquoise;
+}
