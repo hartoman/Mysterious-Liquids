@@ -3,7 +3,7 @@ import Bottle from "./Bottle";
 import * as classes from "./BottleContainer.module.css";
 
 function BottleContainer() {
-  const [BOTTLE_CAPACITY, NUM_BOTTLES, NUM_EMPTY_BOTTLES] = [4, 2, 2];
+  const [BOTTLE_CAPACITY, NUM_BOTTLES, NUM_EMPTY_BOTTLES] = [4, 4, 2];
   const [height, setHeight] = useState(0);
   const ref = useRef(null);
   const [bottleArray, setBottleArray] = useState(initializeBottleArray());
@@ -13,14 +13,19 @@ function BottleContainer() {
     const allBottles = [];
     const totalLiquids = createTotalLiquids();
 
-    // TODO MAKE IT IMPOSSIBLE TO BEGIN WITH ALREADY COMPLETED BOTTLES
-
     for (let i = 0; i < NUM_BOTTLES; i++) {
       const bottle = [];
       for (let j = 0; j < BOTTLE_CAPACITY; j++) {
         
-        const randomIndex = randomNumberBetween(0, totalLiquids.length - 1);
-        const randomNum = totalLiquids[randomIndex];
+        let randomIndex = randomNumberBetween(0, totalLiquids.length - 1);
+        let randomNum = totalLiquids[randomIndex];
+          // make sure that we cannot begin with already sorted bottles
+        if (j === BOTTLE_CAPACITY - 1) {
+          while (areAllElementsSame(bottle)&&bottle[0]===randomNum) {
+            randomIndex = randomNumberBetween(0, totalLiquids.length - 1);
+            randomNum = totalLiquids[randomIndex];
+          }
+        }
 
         totalLiquids.splice(randomIndex, 1);
         bottle.push(randomNum);
@@ -38,7 +43,18 @@ function BottleContainer() {
     function randomNumberBetween(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-
+    function areAllElementsSame(arr) {
+      if (arr.length === 0) {
+          return true;
+      }
+      for (let i = 1; i < arr.length; i++) {
+          if (arr[i] !== arr[0]) {
+              return false;
+          }
+      }
+      
+      return true;
+    }
     function createTotalLiquids() {
       const arr = [];
       for (let i = 0; i < BOTTLE_CAPACITY; i++) {
@@ -101,7 +117,7 @@ function BottleContainer() {
 
   return (
     <div className={classes.container} ref={ref}>
-      {bottleArray.map((liquids, index) => (
+      {bottleArray.map((_, index) => (
         <div
           key={index}
           onClick={() => handleClick(index)}
