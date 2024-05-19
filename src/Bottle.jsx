@@ -2,12 +2,12 @@ import { useState } from "react";
 import * as classes from "./Bottle.module.css";
 
 function Bottle(props) {
-  const [contents, setContents] = useState(props.contents);
   const HEIGHT = props.height;
-
+  const contents = props.contents;
+  
   return (
     <div className={classes.bottleStyle}>
-      {contents.map((s, index) => (
+      {contents.map((_, index) => (
         <div
           key={index}
           style={{height:`${HEIGHT}px`}}

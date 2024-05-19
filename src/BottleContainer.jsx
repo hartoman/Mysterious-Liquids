@@ -7,8 +7,17 @@ const height = (window.screen.height*0.15)/(BOTTLE_CAPACITY*1.2)
 
 function BottleContainer() {
 
-  const [bottleArray, setBottleArray] = useState(initializeBottleArray());
+  const [bottleArray, setBottleArray] = useState([]);
   const [selectedBottles, setSelectedBottle] = useState([-1, -1]);
+
+  function handleNew() {
+    initializeBottleArray()
+    setSelectedBottle([-1, -1])
+  }
+
+  useEffect(() => {
+    initializeBottleArray()
+  },[])
 
   function initializeBottleArray() {
     const allBottles = [];
@@ -39,7 +48,7 @@ function BottleContainer() {
       const emptyBottle = [];
       allBottles.push(emptyBottle);
     }
-    return allBottles;
+    setBottleArray(allBottles);
 
     function randomNumberBetween(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -116,19 +125,24 @@ function BottleContainer() {
     setHeight(Math.floor(ref.current.clientHeight / (BOTTLE_CAPACITY + 1)));
   });*/
 
+
   return (
+    <div>
     <div className={classes.container}>
-      {bottleArray.map((_, index) => (
+      {bottleArray.map((liquids, index) => (
         <div
-              key={index}
+          key={index}
           onClick={() => handleClick(index)}
           className={`${classes.bottle} 
           ${index === selectedBottles[0] || index === selectedBottles[1] ? classes.selected : ""}`}
         >
-          <Bottle contents={bottleArray[index]} height={height} />
+          {bottleArray[index]}
+          <Bottle contents={bottleArray[index]} height={height}/>
         </div>
       ))}
-    </div>
+      </div>
+      <button onClick={() => handleNew()}> New</button>
+      </div>
   );
 }
 
