@@ -2,10 +2,11 @@ import { useState, useEffect, useRef } from "react";
 import Bottle from "./Bottle";
 import * as classes from "./BottleContainer.module.css";
 
+const [BOTTLE_CAPACITY, NUM_BOTTLES, NUM_EMPTY_BOTTLES] = [4, 4, 2];
+const height = (window.screen.height*0.15)/(BOTTLE_CAPACITY*1.2)
+
 function BottleContainer() {
-  const [BOTTLE_CAPACITY, NUM_BOTTLES, NUM_EMPTY_BOTTLES] = [4, 4, 2];
-  const [height, setHeight] = useState(0);
-  const ref = useRef(null);
+
   const [bottleArray, setBottleArray] = useState(initializeBottleArray());
   const [selectedBottles, setSelectedBottle] = useState([-1, -1]);
 
@@ -110,17 +111,16 @@ function BottleContainer() {
     setBottleArray(newState);
   };
 
-  // sets the height of each drop of liquid in the bottles
+/*
   useEffect(() => {
     setHeight(Math.floor(ref.current.clientHeight / (BOTTLE_CAPACITY + 1)));
-  });
+  });*/
 
   return (
     <div className={classes.container}>
       {bottleArray.map((_, index) => (
         <div
-          ref={ref}
-          key={index}
+              key={index}
           onClick={() => handleClick(index)}
           className={`${classes.bottle} 
           ${index === selectedBottles[0] || index === selectedBottles[1] ? classes.selected : ""}`}
