@@ -112,13 +112,14 @@ function BottleContainer() {
 
   // sets the height of each drop of liquid in the bottles
   useEffect(() => {
-    setHeight(ref.current.clientHeight / (BOTTLE_CAPACITY + 1));
+    setHeight(Math.floor(ref.current.clientHeight / (BOTTLE_CAPACITY + 1)));
   });
 
   return (
-    <div className={classes.container} ref={ref}>
+    <div className={classes.container}>
       {bottleArray.map((_, index) => (
         <div
+          ref={ref}
           key={index}
           onClick={() => handleClick(index)}
           className={`${classes.bottle} 
