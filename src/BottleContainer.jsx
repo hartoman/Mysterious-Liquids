@@ -2,11 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import Bottle from "./Bottle";
 import * as classes from "./BottleContainer.module.css";
 
+const screenHeight=window.screen.height;
+
 function BottleContainer(props) {
-  const BOTTLE_CAPACITY = props.bottleCapacity;
-  const [height, setHeight] = useState(0);
-  const ref = useRef(null);
   const [selectedBottles, setSelectedBottle] = useState([-1, -1]);
+  const BOTTLE_CAPACITY = props.bottleCapacity;
+  const height = (screenHeight*0.14)/(BOTTLE_CAPACITY*1.1)
 
   function handleClick(key) {
     if (selectedBottles[0] === -1) {
@@ -51,16 +52,11 @@ function BottleContainer(props) {
     props.setBottleArray(newState);
   };
 
-  // sets the height of each drop of liquid in the bottles
-  useEffect(() => {
-    setHeight(Math.floor(ref.current.clientHeight / (BOTTLE_CAPACITY *1.05)));
-  });
 
   return (
     <div className={classes.container}>
       {props.bottleArray.map((_, index) => (
         <div
-          ref={ref}
           key={index}
           onClick={() => handleClick(index)}
           className={`${classes.bottle} 
