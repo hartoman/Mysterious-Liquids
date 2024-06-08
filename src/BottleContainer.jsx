@@ -2,14 +2,25 @@ import { useState, useEffect, useRef } from "react";
 import Bottle from "./Bottle";
 import * as classes from "./BottleContainer.module.css";
 
-const screenHeight=window.screen.height;
+const screenHeight = window.screen.height;
 
 function BottleContainer(props) {
+  // TODO: ON NEWGAME RESET SELECTED
   const [selectedBottles, setSelectedBottle] = useState([-1, -1]);
+  const [isAnimating, setIsAnimating] = useState(-1);
   const BOTTLE_CAPACITY = props.bottleCapacity;
-  const height = (screenHeight*0.14)/(BOTTLE_CAPACITY*1.1)
+  const height = (screenHeight * 0.14) / (BOTTLE_CAPACITY * 1.1);
 
   function handleClick(key) {
+    const isAlreadyComplete = props.bottlesComplete.includes(key);
+    if (isAlreadyComplete) {
+      console.log("bottle is already complete");
+      return;
+    }
+    if (props.bottleArray[key].length === 0 && selectedBottles[0] === -1) {
+      console.log("bottle is empty");
+      return;
+    }
     if (selectedBottles[0] === -1) {
       setSelectedBottle((b) => [key, -1]); // if no bottle selected selects the origin bottle
       return;
@@ -33,6 +44,7 @@ function BottleContainer(props) {
     if (!(selectedBottles[0] === -1 || selectedBottles[1] === -1)) {
       // here the liquids change bottle
       pourLiquidsToTargetBottle();
+      checkIfBottleComplete();
     }
   }, [selectedBottles]);
 
@@ -45,13 +57,36 @@ function BottleContainer(props) {
     if (arrayOrigin[0] != arrayDestination[0] && arrayDestination[0] != null) {
       return;
     }
-    const freeSlots = arrayDestination - BOTTLE_CAPACITY;
-    const originElement = arrayOrigin.shift(); // Remove the first element from the first subarray
-    const topElement = originElement;
-    arrayDestination.unshift(topElement); // Push the removed element into the third subarray
+
+    const freeSlotsInDestination = BOTTLE_CAPACITY - arrayDestination.length;
+    let numTilesSameColorOfOrigin = 1;
+    for (let i = 1; i < arrayOrigin.length; i++) {
+      if (arrayOrigin[i] === arrayOrigin[0]) {
+        numTilesSameColorOfOrigin++;
+      } else {
+        break;
+      }
+    }
+    const numTilesToMove = Math.min(freeSlotsInDestination, numTilesSameColorOfOrigin);
+    for (let i = 0; i < numTilesToMove; i++) {
+      const originElement = arrayOrigin.shift(); // Remove the first element from the first subarray
+      const topElement = originElement;
+      arrayDestination.unshift(topElement); // Push the removed element into the third subarray
+    }
     props.setBottleArray(newState);
   };
 
+  const checkIfBottleComplete = () => {
+    const newState = [...props.bottleArray];
+    const arrayDestination = newState[selectedBottles[1]];
+    const allSame = arrayDestination.every((element, _, arrayDestination) => element === arrayDestination[0]);
+    const index = props.bottleArray.indexOf(arrayDestination);
+    if (arrayDestination.length === BOTTLE_CAPACITY && allSame) {
+      console.log("bottle complete!");
+      props.setBottlesComplete([...props.bottlesComplete, props.bottleArray.indexOf(arrayDestination)]);
+      setIsAnimating(index)
+    }
+  };
 
   return (
     <div className={classes.container}>
@@ -60,7 +95,9 @@ function BottleContainer(props) {
           key={index}
           onClick={() => handleClick(index)}
           className={`${classes.bottle} 
-          ${index === selectedBottles[0] || index === selectedBottles[1] ? classes.selected : ""}`}
+          ${index === selectedBottles[0] || index === selectedBottles[1] ? classes.selected : ""}
+          ${index === isAnimating? classes.complete:""}
+          `}
         >
           <Bottle contents={props.bottleArray[index]} height={height} />
         </div>

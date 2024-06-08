@@ -5,15 +5,29 @@ import * as classes from "./GameScreen.module.css";
 function GameScreen() {
   const [BOTTLE_CAPACITY, NUM_BOTTLES, NUM_EMPTY_BOTTLES] = [4, 4, 2];
   const [bottleArray, setBottleArray] = useState([]);
-  const [backup, setResetGame] = useState([]);
+  const [bottlesComplete, setBottlesComplete] = useState([]);
+  const [levelFinished, setLevelFinished] = useState(false);
+  const [resetGame, setResetGame] = useState([]);
 
   useEffect(() => {
     initializeBottleArray();
   }, []);
 
+  useEffect(() => {
+    if (bottlesComplete.length === NUM_BOTTLES) {
+      setLevelFinished(true);
+    }
+  }, [bottlesComplete]);
+
+  useEffect(() => {
+    //  console.log("level complete!!!");
+  }, [levelFinished]);
+
   function initializeBottleArray() {
     const allBottles = [];
     const totalLiquids = createTotalLiquids();
+    setLevelFinished(false);
+    setBottlesComplete([]);
 
     for (let i = 0; i < NUM_BOTTLES; i++) {
       const bottle = [];
@@ -39,9 +53,10 @@ function GameScreen() {
       const emptyBottle = [];
       allBottles.push(emptyBottle);
     }
-    const resetGame = structuredClone(allBottles);
+    const initialformation = structuredClone(allBottles);
     setBottleArray(allBottles);
-    setResetGame(resetGame);
+    setResetGame(initialformation);
+    // console.log('initial formation changed')
 
     function randomNumberBetween(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -68,23 +83,38 @@ function GameScreen() {
     }
   }
 
+  function markBottleAsDone(bottleIndex) {
+    setBottlesComplete([...bottlesComplete, bottleIndex]);
+  }
+
   function handleNew() {
     initializeBottleArray();
   }
 
+  //TODO FIX, AFTER 1ST MOVE DOESN'T WORK
   function handleReset() {
-    setBottleArray(backup);
+    setBottleArray(resetGame);
   }
-  function handleUndo() {
-
-  }
+  // TODO
+  function handleUndo() {}
 
   return (
     <div>
-      <BottleContainer bottleArray={bottleArray} setBottleArray={setBottleArray} bottleCapacity={BOTTLE_CAPACITY} />
+      {levelFinished && <div>LEVEL COMPLETE</div>}
+      <BottleContainer
+        bottleArray={bottleArray}
+        setBottleArray={setBottleArray}
+        bottlesComplete ={bottlesComplete}
+        setBottlesComplete={setBottlesComplete}
+        bottleCapacity={BOTTLE_CAPACITY}
+      />
       <button onClick={() => handleNew()}>New Level</button>
-      <button onClick={() => handleReset()}>Reset</button>
-      <button onClick={() => handleUndo()}>Undo</button>
+      <button onClick={() => handleReset()} disabled>
+        Reset
+      </button>
+      <button onClick={() => handleUndo()} disabled>
+        Undo
+      </button>
     </div>
   );
 }
