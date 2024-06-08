@@ -83,8 +83,11 @@ function BottleContainer(props) {
     const index = props.bottleArray.indexOf(arrayDestination);
     if (arrayDestination.length === BOTTLE_CAPACITY && allSame) {
       console.log("bottle complete!");
-      props.setBottlesComplete([...props.bottlesComplete, props.bottleArray.indexOf(arrayDestination)]);
-      setIsAnimating(index)
+      setIsAnimating(index);
+      // give the cool animation time to display
+      setTimeout(() => {
+        props.setBottlesComplete([...props.bottlesComplete, props.bottleArray.indexOf(arrayDestination)]);
+      }, 750);
     }
   };
 
@@ -96,10 +99,15 @@ function BottleContainer(props) {
           onClick={() => handleClick(index)}
           className={`${classes.bottle} 
           ${index === selectedBottles[0] || index === selectedBottles[1] ? classes.selected : ""}
-          ${index === isAnimating? classes.complete:""}
+
           `}
         >
-          <Bottle contents={props.bottleArray[index]} height={height} />
+          <Bottle
+            contents={props.bottleArray[index]}
+            height={height}
+            isComplete={props.bottlesComplete.includes(index) ? true : false}
+            isAnimating={isAnimating === index ? true : false}
+          />
         </div>
       ))}
     </div>

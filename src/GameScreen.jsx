@@ -3,12 +3,13 @@ import BottleContainer from "./BottleContainer";
 import * as classes from "./GameScreen.module.css";
 
 function GameScreen() {
-  const [BOTTLE_CAPACITY, NUM_BOTTLES, NUM_EMPTY_BOTTLES] = [4, 4, 2];
+  const [BOTTLE_CAPACITY, NUM_BOTTLES, NUM_EMPTY_BOTTLES] = [4, 5, 2];
   const [bottleArray, setBottleArray] = useState([]);
   const [bottlesComplete, setBottlesComplete] = useState([]);
   const [levelFinished, setLevelFinished] = useState(false);
-  const [resetGame, setResetGame] = useState([]);
+//  const [resetGame, setResetGame] = useState([]);
 
+  
   useEffect(() => {
     initializeBottleArray();
   }, []);
@@ -21,7 +22,10 @@ function GameScreen() {
 
   useEffect(() => {
     //  console.log("level complete!!!");
+    
   }, [levelFinished]);
+
+
 
   function initializeBottleArray() {
     const allBottles = [];
@@ -53,10 +57,8 @@ function GameScreen() {
       const emptyBottle = [];
       allBottles.push(emptyBottle);
     }
-    const initialformation = structuredClone(allBottles);
     setBottleArray(allBottles);
-    setResetGame(initialformation);
-    // console.log('initial formation changed')
+   // setResetGame(allBottles)
 
     function randomNumberBetween(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -83,9 +85,6 @@ function GameScreen() {
     }
   }
 
-  function markBottleAsDone(bottleIndex) {
-    setBottlesComplete([...bottlesComplete, bottleIndex]);
-  }
 
   function handleNew() {
     initializeBottleArray();
@@ -93,7 +92,8 @@ function GameScreen() {
 
   //TODO FIX, AFTER 1ST MOVE DOESN'T WORK
   function handleReset() {
-    setBottleArray(resetGame);
+
+ //   setBottleArray(resetGame);
   }
   // TODO
   function handleUndo() {}
@@ -109,7 +109,7 @@ function GameScreen() {
         bottleCapacity={BOTTLE_CAPACITY}
       />
       <button onClick={() => handleNew()}>New Level</button>
-      <button onClick={() => handleReset()} disabled>
+      <button onClick={() => handleReset()}>
         Reset
       </button>
       <button onClick={() => handleUndo()} disabled>

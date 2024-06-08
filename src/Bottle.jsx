@@ -4,12 +4,14 @@ import * as classes from "./Bottle.module.css";
 function Bottle(props) {
 
   return (
-    <div className={classes.bottleStyle}>
+    <div className={`${classes.bottleStyle}
+                      ${props.isComplete?classes.complete:""}`}>
       {props.contents.map((_, index) => (
         <div
           key={index}
-          style={{height:`${props.height}px`}}
-          className={
+          style={{height:`${props.height}px`,zIndex: -1}}
+          className={`
+            ${
             props.contents[index] === 0
               ? classes.empty
               : props.contents[index] === 1
@@ -24,7 +26,9 @@ function Bottle(props) {
               ? classes.purple
               : props.contents[index] === 6
               ? classes.turquoise
-              : ""
+                        : ""}
+              ${props.isAnimating?classes.finishing:""}
+              `
           }
         ></div>
       ))}
