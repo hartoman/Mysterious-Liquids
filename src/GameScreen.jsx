@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import BottleContainer from "./BottleContainer";
+import LevelFinished from "./LevelFinished";
 import * as classes from "./GameScreen.module.css";
 
 function GameScreen() {
-  const [BOTTLE_CAPACITY, NUM_BOTTLES, NUM_EMPTY_BOTTLES] = [4, 5, 2];
+  const [BOTTLE_CAPACITY, NUM_BOTTLES, NUM_EMPTY_BOTTLES] = [4, 6, 2];
   const [bottleArray, setBottleArray] = useState([]);
   const [bottlesComplete, setBottlesComplete] = useState([]);
   const [levelFinished, setLevelFinished] = useState(false);
-//  const [resetGame, setResetGame] = useState([]);
+  //  const [resetGame, setResetGame] = useState([]);
 
   
   useEffect(() => {
@@ -58,7 +59,7 @@ function GameScreen() {
       allBottles.push(emptyBottle);
     }
     setBottleArray(allBottles);
-   // setResetGame(allBottles)
+    // setResetGame(allBottles)
 
     function randomNumberBetween(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -93,14 +94,21 @@ function GameScreen() {
   //TODO FIX, AFTER 1ST MOVE DOESN'T WORK
   function handleReset() {
 
- //   setBottleArray(resetGame);
+    //   setBottleArray(resetGame);
   }
   // TODO
-  function handleUndo() {}
+  function handleUndo() { }
+
+  const passedFunctions = {
+    newGame : initializeBottleArray
+  }
 
   return (
     <div>
-      {levelFinished && <div>LEVEL COMPLETE</div>}
+      {levelFinished && <LevelFinished passedFunctions={passedFunctions} />}
+
+      {!levelFinished &&
+      <div>
       <BottleContainer
         bottleArray={bottleArray}
         setBottleArray={setBottleArray}
@@ -115,6 +123,7 @@ function GameScreen() {
       <button onClick={() => handleUndo()} disabled>
         Undo
       </button>
+      </div>}
     </div>
   );
 }

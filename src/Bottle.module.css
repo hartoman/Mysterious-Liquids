@@ -13,6 +13,9 @@
   justify-content: flex-end;
   position: relative;
   z-index: 1;
+
+  background: black;
+  background: linear-gradient(90deg, rgba(100,100,100,1) 0%, rgba(0,0,0,1) 60%, rgba(100,100,100,1)  100%);
 }
 
 .bottleStyle:after{
@@ -31,6 +34,7 @@
  /*   width: 10vw;
     min-width: 20px;
     max-width: 50px;*/
+    
  }
 }
 
@@ -60,23 +64,23 @@
 
 .yellow {
   background: rgb(255,223,0);
-background: linear-gradient(90deg, rgba(220,220,150,1) 0%, rgba(200,200,0,1) 60%, rgba(255,255,180,1) 100%);
+  background: linear-gradient(90deg, rgba(220,220,150,1) 0%, rgba(200,200,0,1) 60%, rgba(180,180,90,1) 100%);
 }
 .green {
   background: rgb(26,159,44);
-background: linear-gradient(90deg, rgba(75,129,75,1) 0%, rgba(90,201,64,1) 60%, rgba(180,255,180,1) 100%);
+background: linear-gradient(90deg, rgba(75,129,75,1) 0%, rgba(90,201,64,1) 60%, rgba(50,180,50,1) 100%);
 }
 .blue {
   background: rgb(0,72,129);
-background: linear-gradient(90deg, rgba(75,72,129,1) 0%, rgba(26,26,143,1) 60%, rgba(0,212,255,1) 100%);
+background: linear-gradient(90deg, rgba(75,72,129,1) 0%, rgba(60,60,200,1) 60%, rgba(100,155,155,1) 100%);
 }
 .red {
-  background: rgb(218,13,13);
-background: linear-gradient(90deg, rgba(129,72,72,1) 0%, rgba(189,34,34,1) 60%, rgba(255,180,180,1) 100%);
+background: rgb(218,13,13);
+background: linear-gradient(90deg, rgba(129,72,72,1) 0%, rgba(200,34,34,1) 60%, rgba(255,100,200,1) 100%);
 }
 .purple {
-  background: rgb(75,72,129);
-background: linear-gradient(90deg, rgba(75,72,129,1) 0%, rgba(26,26,143,1) 60%, rgba(180,212,255,1) 100%);
+  background: rgb(240, 72, 255);
+background: linear-gradient(90deg, rgba(100,100,130,1) 0%, rgba(240,50,255,1) 60%, rgba(150,180,180,1) 100%);
 }
 .turquoise {
   background-color: turquoise;
@@ -87,27 +91,32 @@ background: linear-gradient(90deg, rgba(75,72,129,1) 0%, rgba(26,26,143,1) 60%, 
 
 @keyframes rainbow {
   0% {
-    background-color: red;
+    background: rgb(218,13,13);
+background: linear-gradient(90deg, rgba(129,72,72,1) 0%, rgba(200,34,34,1) 60%, rgba(255,200,200,1) 100%);
   }
 
   20% {
-    background-color: orange;
+    background: rgb(255,223,0);
+    background: linear-gradient(90deg, rgba(220,220,150,1) 0%, rgba(200,200,0,1) 60%, rgba(255,255,180,1) 100%);
   }
 
   40% {
-    background-color: yellow;
+    background: yellow;
   }
 
   60% {
-    background-color: green;
+    background: rgb(26,159,44);
+    background: linear-gradient(90deg, rgba(75,129,75,1) 0%, rgba(90,201,64,1) 60%, rgba(180,255,180,1) 100%);
   }
 
   80% {
-    background-color: blue;
+    background: rgb(0,72,129);
+    background: linear-gradient(90deg, rgba(75,72,129,1) 0%, rgba(60,60,200,1) 60%, rgba(0,255,255,1) 100%);
   }
 
   100% {
-    background-color: purple;
+    background: rgb(240, 72, 255);
+background: linear-gradient(90deg, rgba(100,100,130,1) 0%, rgba(240,50,255,1) 60%, rgba(180,212,255,1) 100%);
   }
 }
 
