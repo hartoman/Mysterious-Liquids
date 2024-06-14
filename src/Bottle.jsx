@@ -12,19 +12,19 @@ function Bottle(props) {
           style={{height:`${props.height}px`,zIndex: -1}}
           className={`
             ${
-            props.contents[index] === 0
-              ? classes.empty
-              : props.contents[index] === 1
+            props.contents[index].uncovered === false
+              ? classes.hidden
+              : props.contents[index].color === 1
               ? classes.yellow
-              : props.contents[index] === 2
+              : props.contents[index].color === 2
               ? classes.green
-              : props.contents[index] === 3
+              : props.contents[index].color === 3
               ? classes.blue
-              : props.contents[index] === 4
+              : props.contents[index].color === 4
               ? classes.red
-              : props.contents[index] === 5
+              : props.contents[index].color === 5
               ? classes.purple
-              : props.contents[index] === 6
+              : props.contents[index].color === 6
               ? classes.turquoise
                         : ""}
               ${props.isAnimating?classes.finishing:""}

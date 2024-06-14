@@ -58,9 +58,18 @@
  background-color:lightgray;
 }
 
-.empty {
-  background-color: transparent;
-}
+.hidden {
+  background: black;
+  background: linear-gradient(90deg, rgba(100,100,100,1) 0%, rgba(0,0,0,1) 60%, rgba(100,100,100,1)  100%);
+ }
+
+  .hidden:before{
+    position: absolute;
+    display: flex;
+    left:37%;
+    color:white;
+    content:'?';
+  }
 
 .yellow {
   background: rgb(255,223,0);

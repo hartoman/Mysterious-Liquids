@@ -4,7 +4,7 @@ import LevelFinished from "./LevelFinished";
 import * as classes from "./GameScreen.module.css";
 
 function GameScreen() {
-  const [BOTTLE_CAPACITY, NUM_BOTTLES, NUM_EMPTY_BOTTLES] = [4, 6, 2];
+  const [BOTTLE_CAPACITY, NUM_BOTTLES, NUM_EMPTY_BOTTLES] = [4, 6, 4];
   const [bottleArray, setBottleArray] = useState([]);
   const [bottlesComplete, setBottlesComplete] = useState([]);
   const [levelFinished, setLevelFinished] = useState(false);
@@ -13,6 +13,7 @@ function GameScreen() {
   
   useEffect(() => {
     initializeBottleArray();
+    
   }, []);
 
   useEffect(() => {
@@ -41,7 +42,7 @@ function GameScreen() {
         let randomNum = totalLiquids[randomIndex];
         // make sure that we cannot begin with already sorted bottles
         if (j === BOTTLE_CAPACITY - 1) {
-          while (areAllElementsSame(bottle) && bottle[0] === randomNum) {
+          while (areAllElementsSame(bottle) && bottle[0].color === randomNum) {
             randomIndex = randomNumberBetween(0, totalLiquids.length - 1);
             randomNum = totalLiquids[randomIndex];
           }
@@ -58,6 +59,8 @@ function GameScreen() {
       const emptyBottle = [];
       allBottles.push(emptyBottle);
     }
+     const finalArray = uncoverFirstLiquids(allBottles)
+
     setBottleArray(allBottles);
     // setResetGame(allBottles)
 
@@ -69,7 +72,7 @@ function GameScreen() {
         return true;
       }
       for (let i = 1; i < arr.length; i++) {
-        if (arr[i] !== arr[0]) {
+        if (arr[i].color !== arr[0].color) {
           return false;
         }
       }
@@ -79,12 +82,26 @@ function GameScreen() {
       const arr = [];
       for (let i = 0; i < BOTTLE_CAPACITY; i++) {
         for (let j = 1; j < NUM_BOTTLES + 1; j++) {
-          arr.push(j);
+          const liquidDrop = {
+            uncovered: false,
+            color:j
+          }
+          arr.push(liquidDrop);
         }
       }
       return arr;
     }
+
+    function uncoverFirstLiquids(coveredArray) {
+      coveredArray.forEach(array => {
+          if (Array.isArray(array) && array.length > 0) {
+            array[0].uncovered = true;
+          }
+        });
+      }
   }
+
+
 
 
   function handleNew() {

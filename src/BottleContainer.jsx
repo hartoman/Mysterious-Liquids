@@ -44,6 +44,7 @@ function BottleContainer(props) {
     if (!(selectedBottles[0] === -1 || selectedBottles[1] === -1)) {
       // here the liquids change bottle
       pourLiquidsToTargetBottle();
+      uncoverTop()
       checkIfBottleComplete();
     }
   }, [selectedBottles]);
@@ -53,15 +54,16 @@ function BottleContainer(props) {
     const newState = [...props.bottleArray]; // Make a shallow copy of the state array
     const arrayOrigin = newState[selectedBottles[0]];
     const arrayDestination = newState[selectedBottles[1]];
+  
     // you cannot pour on a different color
-    if (arrayOrigin[0] != arrayDestination[0] && arrayDestination[0] != null) {
+    if (arrayOrigin[0]!= null  && arrayDestination[0]!= null && arrayOrigin[0].color != arrayDestination[0].color  ) {
       return;
     }
 
     const freeSlotsInDestination = BOTTLE_CAPACITY - arrayDestination.length;
     let numTilesSameColorOfOrigin = 1;
     for (let i = 1; i < arrayOrigin.length; i++) {
-      if (arrayOrigin[i] === arrayOrigin[0]) {
+      if (arrayOrigin[i].color === arrayOrigin[0].color && arrayOrigin[i].uncovered) {
         numTilesSameColorOfOrigin++;
       } else {
         break;
@@ -73,13 +75,29 @@ function BottleContainer(props) {
       const topElement = originElement;
       arrayDestination.unshift(topElement); // Push the removed element into the third subarray
     }
+
+// TODO IF MODE COVERED UNCOVERED
+    const index = selectedBottles[0]
+    if (newState[index].length) {
+      if (!newState[index][0].uncovered) {
+        newState[index][0].uncovered = true;
+        console.log('win')
+        console.log(newState[index][0])
+      }
+    }
+    
     props.setBottleArray(newState);
   };
+
+  const uncoverTop = () => {
+
+
+  }
 
   const checkIfBottleComplete = () => {
     const newState = [...props.bottleArray];
     const arrayDestination = newState[selectedBottles[1]];
-    const allSame = arrayDestination.every((element, _, arrayDestination) => element === arrayDestination[0]);
+    const allSame = arrayDestination.every((element, _, arrayDestination) => element.color === arrayDestination[0].color);
     const index = props.bottleArray.indexOf(arrayDestination);
     if (arrayDestination.length === BOTTLE_CAPACITY && allSame) {
       console.log("bottle complete!");
