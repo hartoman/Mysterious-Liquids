@@ -4,9 +4,11 @@ import * as classes from "./LevelFinished.module.css";
 function LevelFinished(props) {
   const [random, setRandom] = useState(true);
 
-  function toggleRandom() {
+  const toggleRandom = () => {
     setRandom((random) => !random);
-  }
+  };
+
+  const toggleUncovered = () => {};
 
   return (
     <div>
@@ -27,13 +29,36 @@ function LevelFinished(props) {
             <h2> Select Level</h2>
             <div className={classes.buttonContainer}>
               <label htmlFor="numColors">Number of Colors</label>
-              <input id="numColors" type="number" value={2} min="2" />
-              <label htmlFor="numCapacity"></label>Bottle Capacity
-              <input id="numCapacity" type="number" value={2} min="2" />
+              <div>
+                <button>-</button>
+                <input id="numColors" type="number" value={2} min="2" />
+                <button>+</button>
+              </div>
+
+              <label htmlFor="numCapacity">Bottle Capacity</label>
+              <div>
+                <button>-</button>
+                <input id="numCapacity" type="number" value={2} min="2" />
+                <button>+</button>
+              </div>
+
               <label htmlFor="numEmpty">Number of Empty</label>
-              <input id="numEmpty" type="number" value={1} min="1" />
-              <button> Play this level </button>
-              <button onClick={() => toggleRandom()}> Play Random </button>
+
+              <div>
+                <button>-</button>
+                <input id="numEmpty" type="number" value={1} min="1" />
+                <button>+</button>
+              </div>
+
+              <div>
+                <label htmlFor="numEmpty">Mysterious Liquids</label>
+                <input id="startCovered" type="checkbox" value={1} min="1" onChange={() => toggleUncovered()} />
+              </div>
+
+              <div>
+                <button> Play this level </button>
+                <button onClick={() => toggleRandom()}> Play Random </button>
+              </div>
             </div>
           </div>
         </div>

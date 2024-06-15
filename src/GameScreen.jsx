@@ -11,7 +11,7 @@ function GameScreen() {
   const [bottleArray, setBottleArray] = useState([]);
   const [resetGame, setResetGame] = useState([]);
   const [bottlesComplete, setBottlesComplete] = useState([]);
-  const [levelFinished, setLevelFinished] = useState(false);
+  const [levelFinished, setLevelFinished] = useState(true);
   const [undoList,setUndoList]=useState([])
   
   //  let resetGame = []
@@ -31,7 +31,7 @@ function GameScreen() {
     //setResetGame(structuredClone(bottleArray))
   }, [levelFinished]);
 
-  function initializeBottleArray() {
+  const initializeBottleArray= ()=> {
     const allBottles = [];
     const totalLiquids = createTotalLiquids();
     setLevelFinished(false);
@@ -98,7 +98,7 @@ function GameScreen() {
       return arr;
     }
 
-    function uncoverFirstLiquids(coveredArray) {
+    const uncoverFirstLiquids=(coveredArray)=> {
       coveredArray.forEach((array) => {
         if (Array.isArray(array) && array.length > 0) {
           array[0].uncovered = true;
@@ -107,19 +107,19 @@ function GameScreen() {
     }
   }
 
-  function handleNew() {
+  const handleNew= ()=> {
     initializeBottleArray();
   }
 
   // resets the game to the beginning of the level
-  function handleReset() {
+  const handleReset=()=> {
     setBottleArray(resetGame);
     setBottlesComplete([])
     setUndoList([])
   }
 
   // undo last move(s)
-  function handleUndo() {
+  const handleUndo=()=> {
     if (undoList.length > 0) {
       const lastUndo = undoList.pop();
       const undoneBottleArray = structuredClone(bottleArray)

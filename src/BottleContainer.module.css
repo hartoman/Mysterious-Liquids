@@ -21,9 +21,8 @@
   }
 }
 .selected {
-  box-shadow: 0 0 25px lightgoldenrodyellow;
-  
-}
+  box-shadow: 0 0 25px white;
+ }
 
 .complete{
  /*   opacity: 0.5;
