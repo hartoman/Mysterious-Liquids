@@ -1,6 +1,6 @@
 .backdrop {
   position: absolute;
-  background-color: rgb(136, 147, 241);
+ /* background-color: rgb(136, 147, 241);*/
   z-index: 1000;
   width: 100%;
   height: 100%;

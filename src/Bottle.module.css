@@ -43,8 +43,12 @@
   position: relative;
   /* flex:1;
   height: 2vh;*/
+  
+}
 
+div{
 
+  
 }
 
 .finishing{
@@ -61,6 +65,7 @@
 .hidden {
   background: black;
   background: linear-gradient(90deg, rgba(100,100,100,1) 0%, rgba(0,0,0,1) 60%, rgba(100,100,100,1)  100%);
+
  }
 
   .hidden:before{

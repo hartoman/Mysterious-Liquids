@@ -44,14 +44,18 @@ function BottleContainer(props) {
     if (!(selectedBottles[0] === -1 || selectedBottles[1] === -1)) {
       // here the liquids change bottle
       pourLiquidsToTargetBottle();
-      uncoverTop()
-      checkIfBottleComplete();
     }
   }, [selectedBottles]);
 
+  useEffect(() => {
+    if (props.bottleArray.length>0 && selectedBottles[1]!==-1) {
+      checkIfBottleComplete();
+    }
+  }, [props.bottleArray,selectedBottles]);
+
   // pours liquids from one bottle to another
   const pourLiquidsToTargetBottle = () => {
-    const newState = [...props.bottleArray]; // Make a shallow copy of the state array
+    const newState = structuredClone(props.bottleArray); // Make a deep copy
     const arrayOrigin = newState[selectedBottles[0]];
     const arrayDestination = newState[selectedBottles[1]];
   
@@ -81,22 +85,18 @@ function BottleContainer(props) {
     if (newState[index].length) {
       if (!newState[index][0].uncovered) {
         newState[index][0].uncovered = true;
-        console.log('win')
-        console.log(newState[index][0])
       }
     }
-    
+
+
+    // checkIfBottleComplete(newState);
     props.setBottleArray(newState);
+    
   };
 
-  const uncoverTop = () => {
-
-
-  }
-
   const checkIfBottleComplete = () => {
-    const newState = [...props.bottleArray];
-    const arrayDestination = newState[selectedBottles[1]];
+
+    const arrayDestination = props.bottleArray[selectedBottles[1]];
     const allSame = arrayDestination.every((element, _, arrayDestination) => element.color === arrayDestination[0].color);
     const index = props.bottleArray.indexOf(arrayDestination);
     if (arrayDestination.length === BOTTLE_CAPACITY && allSame) {
@@ -105,6 +105,7 @@ function BottleContainer(props) {
       // give the cool animation time to display
       setTimeout(() => {
         props.setBottlesComplete([...props.bottlesComplete, props.bottleArray.indexOf(arrayDestination)]);
+        setIsAnimating(-1)
       }, 750);
     }
   };
