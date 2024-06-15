@@ -4,14 +4,15 @@ import LevelFinished from "./LevelFinished";
 import * as classes from "./GameScreen.module.css";
 
 function GameScreen() {
-  const [bottleCapacity, setBottleCapacity] = useState(4);
-  const [numBottles, setNumBottles] = useState(3);
+  const [bottleCapacity, setBottleCapacity] = useState(2);
+  const [numBottles, setNumBottles] = useState(2);
   const [numEmptyBottles, setEmptyBottles] = useState(2);
   const [beginUncovered, setBeginUncovered] = useState(true);
   const [bottleArray, setBottleArray] = useState([]);
   const [resetGame, setResetGame] = useState([]);
   const [bottlesComplete, setBottlesComplete] = useState([]);
   const [levelFinished, setLevelFinished] = useState(false);
+  const [undoList,setUndoList]=useState([])
   
   //  let resetGame = []
 
@@ -35,22 +36,23 @@ function GameScreen() {
     const totalLiquids = createTotalLiquids();
     setLevelFinished(false);
     setBottlesComplete([]);
+    setUndoList([])
 
     for (let i = 0; i < numBottles; i++) {
       const bottle = [];
       for (let j = 0; j < bottleCapacity; j++) {
         let randomIndex = randomNumberBetween(0, totalLiquids.length - 1);
-        let randomNum = totalLiquids[randomIndex];
-        // make sure that we cannot begin with already sorted bottles
+        let randomLiquid = totalLiquids[randomIndex];
+        // make sure that we cannot begin with already sorted bottles   
         if (j === bottleCapacity - 1) {
-          while (areAllElementsSame(bottle) && bottle[0].color === randomNum) {
+          while (areAllElementsSame(bottle) && bottle[0].color === randomLiquid.color) {
             randomIndex = randomNumberBetween(0, totalLiquids.length - 1);
-            randomNum = totalLiquids[randomIndex];
+            randomLiquid = totalLiquids[randomIndex];
           }
         }
 
         totalLiquids.splice(randomIndex, 1);
-        bottle.push(randomNum);
+        bottle.push(randomLiquid);
       }
       allBottles.push(bottle);
     }
@@ -109,14 +111,30 @@ function GameScreen() {
     initializeBottleArray();
   }
 
-  //TODO FIX, AFTER 1ST MOVE DOESN'T WORK
+  // resets the game to the beginning of the level
   function handleReset() {
     setBottleArray(resetGame);
     setBottlesComplete([])
+    setUndoList([])
   }
 
-  // TODO
-  function handleUndo() {}
+  // undo last move(s)
+  function handleUndo() {
+    if (undoList.length > 0) {
+      const lastUndo = undoList.pop();
+      const undoneBottleArray = structuredClone(bottleArray)
+      const lastMovedLiquid = undoneBottleArray[lastUndo[1]].pop()
+      undoneBottleArray[lastUndo[0]].unshift(lastMovedLiquid)
+      setBottleArray(undoneBottleArray)
+        if (bottlesComplete.includes(lastUndo[1])) {
+        const newBottlesComplete = structuredClone(bottlesComplete)
+        newBottlesComplete.pop()
+        setBottlesComplete(newBottlesComplete)
+      }
+    }
+
+
+  }
 
   const passedFunctions = {
     newGame: initializeBottleArray,
@@ -134,10 +152,12 @@ function GameScreen() {
             bottlesComplete={bottlesComplete}
             setBottlesComplete={setBottlesComplete}
             bottleCapacity={bottleCapacity}
+            setUndoList={setUndoList}
+            undoList={undoList}
           />
           <button onClick={() => handleNew()}>New Level</button>
-          <button onClick={() => handleReset()}>Start Over</button>
-          <button onClick={() => handleUndo()} disabled>
+          <button onClick={() => handleReset()} disabled={undoList.length === 0}>Start Over</button>
+          <button onClick={() => handleUndo()} disabled={undoList.length === 0}>
             Undo
           </button>
         </div>

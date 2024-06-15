@@ -35,7 +35,8 @@ function BottleContainer(props) {
       } else {
         //sets destination bottle
         setSelectedBottle((b) => [b[0], key]);
-        setTimeout(() => setSelectedBottle((b) => [-1, -1]), 500);
+        setTimeout(() => setSelectedBottle((b) => [-1, -1])
+          , 500);
       }
     }
   }
@@ -44,6 +45,7 @@ function BottleContainer(props) {
     if (!(selectedBottles[0] === -1 || selectedBottles[1] === -1)) {
       // here the liquids change bottle
       pourLiquidsToTargetBottle();
+      updateUndoList()        
     }
   }, [selectedBottles]);
 
@@ -80,7 +82,6 @@ function BottleContainer(props) {
       arrayDestination.unshift(topElement); // Push the removed element into the third subarray
     }
 
-// TODO IF MODE COVERED UNCOVERED
     const index = selectedBottles[0]
     if (newState[index].length) {
       if (!newState[index][0].uncovered) {
@@ -88,14 +89,18 @@ function BottleContainer(props) {
       }
     }
 
-
-    // checkIfBottleComplete(newState);
     props.setBottleArray(newState);
     
   };
 
-  const checkIfBottleComplete = () => {
+  const updateUndoList = () => {
+    const newUndoList = structuredClone(props.undoList)
+    const newUndoItem = [selectedBottles[0],selectedBottles[1]]
+    newUndoList.push(newUndoItem)
+    props.setUndoList(newUndoList)
+  }
 
+  const checkIfBottleComplete = () => {
     const arrayDestination = props.bottleArray[selectedBottles[1]];
     const allSame = arrayDestination.every((element, _, arrayDestination) => element.color === arrayDestination[0].color);
     const index = props.bottleArray.indexOf(arrayDestination);
