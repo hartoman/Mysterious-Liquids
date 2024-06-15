@@ -5,78 +5,25 @@ import * as classes from "./BottleContainer.module.css";
 const [BOTTLE_CAPACITY, NUM_BOTTLES, NUM_EMPTY_BOTTLES] = [4, 4, 2];
 const height = (window.screen.height*0.15)/(BOTTLE_CAPACITY*1.2)
 
-function BottleContainer() {
+const screenHeight = window.screen.height;
 
-  const [bottleArray, setBottleArray] = useState([]);
+function BottleContainer(props) {
+  // TODO: ON NEWGAME RESET SELECTED
   const [selectedBottles, setSelectedBottle] = useState([-1, -1]);
-
-  function handleNew() {
-    initializeBottleArray()
-    setSelectedBottle([-1, -1])
-  }
-
-  useEffect(() => {
-    initializeBottleArray()
-  },[])
-
-  function initializeBottleArray() {
-    const allBottles = [];
-    const totalLiquids = createTotalLiquids();
-
-    for (let i = 0; i < NUM_BOTTLES; i++) {
-      const bottle = [];
-      for (let j = 0; j < BOTTLE_CAPACITY; j++) {
-        
-        let randomIndex = randomNumberBetween(0, totalLiquids.length - 1);
-        let randomNum = totalLiquids[randomIndex];
-          // make sure that we cannot begin with already sorted bottles
-        if (j === BOTTLE_CAPACITY - 1) {
-          while (areAllElementsSame(bottle)&&bottle[0]===randomNum) {
-            randomIndex = randomNumberBetween(0, totalLiquids.length - 1);
-            randomNum = totalLiquids[randomIndex];
-          }
-        }
-
-        totalLiquids.splice(randomIndex, 1);
-        bottle.push(randomNum);
-      }
-      allBottles.push(bottle);
-    }
-
-    // adds empty bottles
-    for (let i = 0; i < NUM_EMPTY_BOTTLES; i++) {
-      const emptyBottle = [];
-      allBottles.push(emptyBottle);
-    }
-    setBottleArray(allBottles);
-
-    function randomNumberBetween(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    function areAllElementsSame(arr) {
-      if (arr.length === 0) {
-          return true;
-      }
-      for (let i = 1; i < arr.length; i++) {
-          if (arr[i] !== arr[0]) {
-              return false;
-          }
-      }
-      
-      return true;
-    }
-    function createTotalLiquids() {
-      const arr = [];
-      for (let i = 0; i < BOTTLE_CAPACITY; i++) {
-        for (let j = 1; j < NUM_BOTTLES + 1; j++) {
-          arr.push(j);
-        }
-      }
-      return arr;
-    }
-  }
+  const [isAnimating, setIsAnimating] = useState(-1);
+  const BOTTLE_CAPACITY = props.bottleCapacity;
+  const height = (screenHeight * 0.14) / (BOTTLE_CAPACITY * 1.1);
 
   function handleClick(key) {
+    const isAlreadyComplete = props.bottlesComplete.includes(key);
+    if (isAlreadyComplete) {
+      console.log("bottle is already complete");
+      return;
+    }
+    if (props.bottleArray[key].length === 0 && selectedBottles[0] === -1) {
+      console.log("bottle is empty");
+      return;
+    }
     if (selectedBottles[0] === -1) {
       setSelectedBottle((b) => [key, -1]); // if no bottle selected selects the origin bottle
       return;
@@ -85,7 +32,7 @@ function BottleContainer() {
       return;
     } else {
       // click the second bottle
-      if (bottleArray[key].length >= BOTTLE_CAPACITY) {
+      if (props.bottleArray[key].length >= BOTTLE_CAPACITY) {
         // target is full
         return;
       } else {
@@ -103,41 +50,87 @@ function BottleContainer() {
     }
   }, [selectedBottles]);
 
+  useEffect(() => {
+    if (props.bottleArray.length>0 && selectedBottles[1]!==-1) {
+      checkIfBottleComplete();
+    }
+  }, [props.bottleArray,selectedBottles]);
+
   // pours liquids from one bottle to another
   const pourLiquidsToTargetBottle = () => {
-    const newState = [...bottleArray]; // Make a shallow copy of the state array
+    const newState = structuredClone(props.bottleArray); // Make a deep copy
     const arrayOrigin = newState[selectedBottles[0]];
     const arrayDestination = newState[selectedBottles[1]];
+  
     // you cannot pour on a different color
-    if (arrayOrigin[0] != arrayDestination[0] && arrayDestination[0] != null) {
+    if (arrayOrigin[0]!= null  && arrayDestination[0]!= null && arrayOrigin[0].color != arrayDestination[0].color  ) {
       return;
     }
-    const freeSlots = arrayDestination - BOTTLE_CAPACITY;
 
-    const originElement = arrayOrigin.shift(); // Remove the first element from the first subarray
-    const topElement = originElement;
-    arrayDestination.unshift(topElement); // Push the removed element into the third subarray
-    setBottleArray(newState);
+    const freeSlotsInDestination = BOTTLE_CAPACITY - arrayDestination.length;
+    let numTilesSameColorOfOrigin = 1;
+    for (let i = 1; i < arrayOrigin.length; i++) {
+      if (arrayOrigin[i].color === arrayOrigin[0].color && arrayOrigin[i].uncovered) {
+        numTilesSameColorOfOrigin++;
+      } else {
+        break;
+      }
+    }
+    const numTilesToMove = Math.min(freeSlotsInDestination, numTilesSameColorOfOrigin);
+    for (let i = 0; i < numTilesToMove; i++) {
+      const originElement = arrayOrigin.shift(); // Remove the first element from the first subarray
+      const topElement = originElement;
+      arrayDestination.unshift(topElement); // Push the removed element into the third subarray
+    }
+
+// TODO IF MODE COVERED UNCOVERED
+    const index = selectedBottles[0]
+    if (newState[index].length) {
+      if (!newState[index][0].uncovered) {
+        newState[index][0].uncovered = true;
+      }
+    }
+
+
+    // checkIfBottleComplete(newState);
+    props.setBottleArray(newState);
+    
   };
 
-/*
-  useEffect(() => {
-    setHeight(Math.floor(ref.current.clientHeight / (BOTTLE_CAPACITY + 1)));
-  });*/
+  const checkIfBottleComplete = () => {
 
+    const arrayDestination = props.bottleArray[selectedBottles[1]];
+    const allSame = arrayDestination.every((element, _, arrayDestination) => element.color === arrayDestination[0].color);
+    const index = props.bottleArray.indexOf(arrayDestination);
+    if (arrayDestination.length === BOTTLE_CAPACITY && allSame) {
+      console.log("bottle complete!");
+      setIsAnimating(index);
+      // give the cool animation time to display
+      setTimeout(() => {
+        props.setBottlesComplete([...props.bottlesComplete, props.bottleArray.indexOf(arrayDestination)]);
+        setIsAnimating(-1)
+      }, 750);
+    }
+  };
 
   return (
     <div>
     <div className={classes.container}>
-      {bottleArray.map((liquids, index) => (
+      {props.bottleArray.map((_, index) => (
         <div
           key={index}
           onClick={() => handleClick(index)}
           className={`${classes.bottle} 
-          ${index === selectedBottles[0] || index === selectedBottles[1] ? classes.selected : ""}`}
+          ${index === selectedBottles[0] || index === selectedBottles[1] ? classes.selected : ""}
+
+          `}
         >
-          {bottleArray[index]}
-          <Bottle contents={bottleArray[index]} height={height}/>
+          <Bottle
+            contents={props.bottleArray[index]}
+            height={height}
+            isComplete={props.bottlesComplete.includes(index) ? true : false}
+            isAnimating={isAnimating === index ? true : false}
+          />
         </div>
       ))}
       </div>

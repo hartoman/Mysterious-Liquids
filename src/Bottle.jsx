@@ -2,31 +2,33 @@ import { useState } from "react";
 import * as classes from "./Bottle.module.css";
 
 function Bottle(props) {
-  const HEIGHT = props.height;
-  const contents = props.contents;
-  
+
   return (
-    <div className={classes.bottleStyle}>
-      {contents.map((_, index) => (
+    <div className={`${classes.bottleStyle}
+                      ${props.isComplete?classes.complete:""}`}>
+      {props.contents.map((_, index) => (
         <div
           key={index}
-          style={{height:`${HEIGHT}px`}}
-          className={
-            contents[index] === 0
-              ? classes.empty
-              : contents[index] === 1
+          style={{height:`${props.height}px`,zIndex: -1}}
+          className={`
+            ${
+            props.contents[index].uncovered === false
+              ? classes.hidden
+              : props.contents[index].color === 1
               ? classes.yellow
-              : contents[index] === 2
+              : props.contents[index].color === 2
               ? classes.green
-              : contents[index] === 3
+              : props.contents[index].color === 3
               ? classes.blue
-              : contents[index] === 4
+              : props.contents[index].color === 4
               ? classes.red
-              : contents[index] === 5
+              : props.contents[index].color === 5
               ? classes.purple
-              : contents[index] === 6
+              : props.contents[index].color === 6
               ? classes.turquoise
-              : ""
+                        : ""}
+              ${props.isAnimating?classes.finishing:""}
+              `
           }
         ></div>
       ))}

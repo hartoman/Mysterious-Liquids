@@ -1,11 +1,10 @@
-import { useState } from 'react'
-import BottleContainer from './BottleContainer'
+import GameScreen from './GameScreen'
 
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
-    <BottleContainer/>
+    <GameScreen/>
   )
 }
 
