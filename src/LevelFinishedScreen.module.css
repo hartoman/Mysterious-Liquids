@@ -25,6 +25,16 @@
     align-items: center;
     justify-content: center;
 }
+
 button{
     margin: 10px;
+    display: inline-block;    
 }
+
+.controlsContainer{
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  font-size: 2rem;
+}
+

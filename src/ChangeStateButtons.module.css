@@ -1,0 +1,12 @@
+.controlButton{
+    font-size: 2rem;
+    margin: 10px;
+    display: inline-block;
+    width: 2rem;
+  }
+  
+  .displayState{
+    display: inline-block;
+    line-height: 2rem;
+    font-size: 2rem;
+  }
