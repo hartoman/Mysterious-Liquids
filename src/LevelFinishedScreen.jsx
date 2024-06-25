@@ -44,24 +44,24 @@ function LevelFinishedScreen(props) {
                 labelText="Number of Bottles"
                 state={props.passedProps.states.numBottles}
                 setState={props.passedProps.setStates.setNumBottles}
-                minVal={2}
-                maxVal={8}
+                minVal={props.minMaxValues.numBottlesMin}
+                maxVal={props.minMaxValues.numBottlesMax}
               />
               <ChangeStateButtons
                 stateId="capacity"
                 labelText="Bottle Capacity"
                 state={props.passedProps.states.bottleCapacity}
                 setState={props.passedProps.setStates.setBottleCapacity}
-                minVal={2}
-                maxVal={8}
+                minVal={props.minMaxValues.bottleCapacityMin}
+                maxVal={props.minMaxValues.bottleCapacityMax}
               />
               <ChangeStateButtons
                 stateId="numEmpty"
                 labelText="Number of Empty"
                 state={props.passedProps.states.numEmptyBottles}
                 setState={props.passedProps.setStates.setEmptyBottles}
-                minVal={1}
-                maxVal={3}
+                minVal={props.minMaxValues.numEmptyBottlesMin}
+                maxVal={props.minMaxValues.numEmptyBottlesMax}
               />
               <div>
                 <label htmlFor="startCovered">Mysterious Liquids</label>

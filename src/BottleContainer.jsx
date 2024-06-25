@@ -5,7 +5,7 @@ import * as classes from "./BottleContainer.module.css";
 const screenHeight = window.screen.height;
 
 function BottleContainer(props) {
-  // TODO: ON NEWGAME RESET SELECTED
+
   const [selectedBottles, setSelectedBottle] = useState([-1, -1]);
   const [isAnimating, setIsAnimating] = useState(-1);
   const BOTTLE_CAPACITY = props.bottleCapacity;
@@ -103,8 +103,9 @@ function BottleContainer(props) {
   const checkIfBottleComplete = () => {
     const arrayDestination = props.bottleArray[selectedBottles[1]];
     const allSame = arrayDestination.every((element, _, arrayDestination) => element.color === arrayDestination[0].color);
+    const allUncovered = arrayDestination.every((element, _, arrayDestination) => element.uncovered);
     const index = props.bottleArray.indexOf(arrayDestination);
-    if (arrayDestination.length === BOTTLE_CAPACITY && allSame) {
+    if (arrayDestination.length === BOTTLE_CAPACITY && allSame && allUncovered) {
       console.log("bottle complete!");
       setIsAnimating(index);
       // give the cool animation time to display
