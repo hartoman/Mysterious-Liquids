@@ -24,10 +24,10 @@ function GameScreen() {
 
   const getRandomBoolean = () => Math.random() < 0.5;
 
-  const [bottleCapacity, setBottleCapacity] = useState(getRandomNumber(3,3));
-  const [numBottles, setNumBottles] = useState(getRandomNumber(2,2));
-  const [numEmptyBottles, setEmptyBottles] = useState(1);
-  const [beginUncovered, setBeginUncovered] = useState(getRandomBoolean);
+  const [bottleCapacity, setBottleCapacity] = useState(getRandomNumber(minMaxValues.bottleCapacityMin, minMaxValues.bottleCapacityMax));
+  const [numBottles, setNumBottles] = useState(getRandomNumber(minMaxValues.numBottlesMin, minMaxValues.numBottlesMax));
+  const [numEmptyBottles, setEmptyBottles] = useState(getRandomNumber(minMaxValues.numEmptyBottlesMin, minMaxValues.numEmptyBottlesMax));
+  const [beginUncovered, setBeginUncovered] = useState(getRandomBoolean());
   const [bottleArray, setBottleArray] = useState([]);
   const [resetGame, setResetGame] = useState([]);
   const [bottlesComplete, setBottlesComplete] = useState([]);
@@ -155,7 +155,7 @@ function GameScreen() {
 
   const randomizeAll = () => {
     setEmptyBottles(e=>getRandomNumber(minMaxValues.numEmptyBottlesMin, minMaxValues.numEmptyBottlesMax))
-    setBeginUncovered(u => getRandomBoolean())/* */
+    setBeginUncovered(u => getRandomBoolean())/
     setNumBottles(n => getRandomNumber(minMaxValues.numBottlesMin, minMaxValues.numBottlesMax))
     setBottleCapacity(b =>  getRandomNumber(minMaxValues.bottleCapacityMin, minMaxValues.bottleCapacityMax))
   }
