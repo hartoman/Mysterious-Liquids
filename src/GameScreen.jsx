@@ -7,7 +7,7 @@ const minMaxValues = {
   bottleCapacityMin:2,
   bottleCapacityMax:6,
   numBottlesMin:2,
-  numBottlesMax:6,
+  numBottlesMax:8,
   numEmptyBottlesMin:1,
   numEmptyBottlesMax:3,
 }
@@ -31,7 +31,7 @@ function GameScreen() {
   const [bottleArray, setBottleArray] = useState([]);
   const [resetGame, setResetGame] = useState([]);
   const [bottlesComplete, setBottlesComplete] = useState([]);
-  const [levelFinished, setLevelFinished] = useState(false);
+  const [levelFinished, setLevelFinished] = useState(true);
   const [undoList, setUndoList] = useState([]);
 
   useEffect(() => {
@@ -161,9 +161,9 @@ function GameScreen() {
   }
 
   const newRandomGame = () => {
-    randomizeAll()
-    initializeBottleArray()
-    
+  //  randomizeAll()
+  //  initializeBottleArray()
+    setLevelFinished(true)
   }
 
 

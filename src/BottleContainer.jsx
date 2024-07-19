@@ -9,7 +9,7 @@ function BottleContainer(props) {
   const [selectedBottles, setSelectedBottle] = useState([-1, -1]);
   const [isAnimating, setIsAnimating] = useState(-1);
   const BOTTLE_CAPACITY = props.bottleCapacity;
-  const height = (screenHeight * 0.14) / (BOTTLE_CAPACITY * 1.1);
+  const height = (screenHeight * 0.14) / (BOTTLE_CAPACITY * 0.8);
 
   const handleClick=(key)=> {
     const isAlreadyComplete = props.bottlesComplete.includes(key);

@@ -26,7 +26,7 @@ function LevelFinishedScreen(props) {
       {randomScreen && (
         <div className={classes.backdrop}>
           <div className={classes.modalBody}>
-            <h2> Level Complete!</h2>
+            <h2> New Level!</h2>
             <div className={classes.buttonContainer}>
               <button onClick={() => newRandomizedGame()}> Random Level</button>
               <button onClick={() => toggleRandomScreen()}>Custom Level</button>
