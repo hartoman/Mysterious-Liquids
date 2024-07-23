@@ -9,7 +9,18 @@ function BottleContainer(props) {
   const [selectedBottles, setSelectedBottle] = useState([-1, -1]);
   const [isAnimating, setIsAnimating] = useState(-1);
   const BOTTLE_CAPACITY = props.bottleCapacity;
-  const height = (screenHeight * 0.14) / (BOTTLE_CAPACITY * 0.8);
+
+  const isPortrait = window.innerHeight > window.innerWidth;
+
+  let height
+  if (isPortrait) {
+    console.log('portrait')
+     height = (screenHeight * 0.14) / (BOTTLE_CAPACITY * 0.8);
+  } else {
+    console.log('landscape')
+     height = (screenHeight * 0.11) / (BOTTLE_CAPACITY * 0.9);
+  }
+  // const height = (screenHeight * 0.14) / (BOTTLE_CAPACITY * 0.8);
 
   const handleClick = (key) => {
     
