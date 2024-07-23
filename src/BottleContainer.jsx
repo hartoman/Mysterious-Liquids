@@ -155,7 +155,6 @@ function BottleContainer(props) {
         </div>
       ))}
       </div>
-      <button onClick={() => handleNew()}> New</button>
       </div>
   );
 }
