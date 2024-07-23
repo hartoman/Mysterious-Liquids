@@ -35,7 +35,7 @@ function GameScreen() {
   const [undoList, setUndoList] = useState([]);
 
   useEffect(() => {
-    initializeBottleArray()
+ //   initializeBottleArray()
   }, [bottleCapacity]);
 
   useEffect(() => {
@@ -47,6 +47,7 @@ function GameScreen() {
   useEffect(() => {
     //  console.log("level complete!!!");
     //setResetGame(structuredClone(bottleArray))
+    initializeBottleArray()
   }, [levelFinished]);
 
   const initializeBottleArray = () => {

@@ -11,7 +11,11 @@ function BottleContainer(props) {
   const BOTTLE_CAPACITY = props.bottleCapacity;
   const height = (screenHeight * 0.14) / (BOTTLE_CAPACITY * 0.8);
 
-  const handleClick=(key)=> {
+  const handleClick = (key) => {
+    
+    if (isAnimating !== -1) {
+      return
+    }
     const isAlreadyComplete = props.bottlesComplete.includes(key);
     if (isAlreadyComplete) {
       console.log("bottle is already complete");
