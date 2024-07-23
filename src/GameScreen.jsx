@@ -4,29 +4,32 @@ import LevelFinishedScreen from "./LevelFinishedScreen";
 import * as classes from "./GameScreen.module.css";
 
 const minMaxValues = {
-  bottleCapacityMin:2,
-  bottleCapacityMax:6,
-  numBottlesMin:2,
-  numBottlesMax:8,
-  numEmptyBottlesMin:1,
-  numEmptyBottlesMax:3,
-}
+  bottleCapacityMin: 2,
+  bottleCapacityMax: 6,
+  numBottlesMin: 2,
+  numBottlesMax: 8,
+  numEmptyBottlesMin: 1,
+  numEmptyBottlesMax: 3,
+};
 
 function GameScreen() {
-
-  const getRandomNumber = (min, max)=> {
+  const getRandomNumber = (min, max) => {
     if (min === max) {
       return min;
     } else {
       return Math.floor(Math.random() * (max - min + 1) + min);
     }
-  }
+  };
 
   const getRandomBoolean = () => Math.random() < 0.5;
 
-  const [bottleCapacity, setBottleCapacity] = useState(getRandomNumber(minMaxValues.bottleCapacityMin, minMaxValues.bottleCapacityMax));
+  const [bottleCapacity, setBottleCapacity] = useState(
+    getRandomNumber(minMaxValues.bottleCapacityMin, minMaxValues.bottleCapacityMax)
+  );
   const [numBottles, setNumBottles] = useState(getRandomNumber(minMaxValues.numBottlesMin, minMaxValues.numBottlesMax));
-  const [numEmptyBottles, setEmptyBottles] = useState(getRandomNumber(minMaxValues.numEmptyBottlesMin, minMaxValues.numEmptyBottlesMax));
+  const [numEmptyBottles, setEmptyBottles] = useState(
+    getRandomNumber(minMaxValues.numEmptyBottlesMin, minMaxValues.numEmptyBottlesMax)
+  );
   const [beginUncovered, setBeginUncovered] = useState(getRandomBoolean());
   const [bottleArray, setBottleArray] = useState([]);
   const [resetGame, setResetGame] = useState([]);
@@ -35,11 +38,11 @@ function GameScreen() {
   const [undoList, setUndoList] = useState([]);
 
   useEffect(() => {
- //   initializeBottleArray()
+    //   initializeBottleArray()
   }, [bottleCapacity]);
 
   useEffect(() => {
-    if (bottlesComplete.length === numBottles && numBottles!==0) {
+    if (bottlesComplete.length === numBottles && numBottles !== 0) {
       setLevelFinished(true);
     }
   }, [bottlesComplete]);
@@ -47,13 +50,13 @@ function GameScreen() {
   useEffect(() => {
     //  console.log("level complete!!!");
     //setResetGame(structuredClone(bottleArray))
-    initializeBottleArray()
+    initializeBottleArray();
   }, [levelFinished]);
 
   const initializeBottleArray = () => {
     const allBottles = [];
     const totalLiquids = createTotalLiquids();
-    
+
     setBottlesComplete([]);
     setUndoList([]);
 
@@ -88,7 +91,6 @@ function GameScreen() {
     setBottleArray(allBottles);
     const backup = structuredClone(allBottles);
     setResetGame(backup);
-
 
     function areAllElementsSame(arr) {
       if (arr.length === 0) {
@@ -143,7 +145,7 @@ function GameScreen() {
       const undoneBottleArray = structuredClone(bottleArray);
       const lastMovedLiquid = undoneBottleArray[lastUndo[1]].pop();
       undoneBottleArray[lastUndo[0]].unshift(lastMovedLiquid);
-      uncoverFirstLiquids(undoneBottleArray)
+      uncoverFirstLiquids(undoneBottleArray);
 
       if (bottlesComplete.includes(lastUndo[1])) {
         const newBottlesComplete = structuredClone(bottlesComplete);
@@ -155,22 +157,21 @@ function GameScreen() {
   };
 
   const randomizeAll = () => {
-    setEmptyBottles(e=>getRandomNumber(minMaxValues.numEmptyBottlesMin, minMaxValues.numEmptyBottlesMax))
-    setBeginUncovered(u => getRandomBoolean())/
-    setNumBottles(n => getRandomNumber(minMaxValues.numBottlesMin, minMaxValues.numBottlesMax))
-    setBottleCapacity(b =>  getRandomNumber(minMaxValues.bottleCapacityMin, minMaxValues.bottleCapacityMax))
-  }
+    setEmptyBottles((e) => getRandomNumber(minMaxValues.numEmptyBottlesMin, minMaxValues.numEmptyBottlesMax));
+    setBeginUncovered((u) => getRandomBoolean()) /
+      setNumBottles((n) => getRandomNumber(minMaxValues.numBottlesMin, minMaxValues.numBottlesMax));
+    setBottleCapacity((b) => getRandomNumber(minMaxValues.bottleCapacityMin, minMaxValues.bottleCapacityMax));
+  };
 
   const newRandomGame = () => {
-  //  randomizeAll()
-  //  initializeBottleArray()
-    setLevelFinished(true)
-  }
-
+    //  randomizeAll()
+    //  initializeBottleArray()
+    setLevelFinished(true);
+  };
 
   const passedProps = {
     newGame: handleNew,
-    randomizeAll:randomizeAll,
+    randomizeAll: randomizeAll,
     setStates: {
       setBottleCapacity: setBottleCapacity,
       setNumBottles: setNumBottles,
@@ -186,11 +187,11 @@ function GameScreen() {
   };
 
   return (
-    <div>
+    <>
       {levelFinished && <LevelFinishedScreen passedProps={passedProps} minMaxValues={minMaxValues} />}
 
       {!levelFinished && (
-        <div>
+        <>
           <BottleContainer
             bottleArray={bottleArray}
             setBottleArray={setBottleArray}
@@ -207,9 +208,9 @@ function GameScreen() {
           <button onClick={() => handleUndo()} disabled={undoList.length === 0}>
             Undo
           </button>
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 }
 

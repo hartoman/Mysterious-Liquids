@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 
 .modalBody {
@@ -18,6 +19,15 @@
   color: limegreen;
   position: relative;
   box-shadow: 0px 0px 5px darkmagenta;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.initialScreenContent{
+  display: flex;
+  flex-direction: column;
 }
 
 .buttonContainer{
@@ -39,3 +49,25 @@ button{
   font-size: 2rem;
 }
 
+.infoButton{
+  width: fit-content;
+  justify-self: end;
+  align-self: baseline;
+  margin: 0;
+  padding: 8px 10px;
+}
+
+
+.infoBackdrop {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top:0;
+  left:0;
+  overflow: scroll;
+
+}

@@ -16,9 +16,9 @@
 
 body {
   margin: 0;
+   background-color: black;
   display: flex;
-  background-color: black;
-  justify-content: center;
+    justify-content: center;
   align-items: center;
   min-width: 100%;
   min-height: 100%;
@@ -30,4 +30,20 @@ body {
 body, html{
   height: 100%;
   width: 100%;
+}
+
+.background {
+    background-image: url('your-background-image.jpg'); /* Use your desired image */
+    background-size: cover;  /* Cover the entire screen */
+    background-attachment: fixed;  /* Keep the background fixed */
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+}
+
+.content {
+overflow: scroll;
+height: 100%;
+background-color: transparent;
 }
