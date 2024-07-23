@@ -14,7 +14,7 @@ function InfoScreen(props) {
             in an empty bottle or on top of a liquid of the same color.
           </p>
           <p>
-            ML is free software: you can redistribute it and/or modify it under the terms of the Creative Commons
+            Mysterious Liquids is free software: you can redistribute it and/or modify it under the terms of the Creative Commons
             Attribution-ShareAlike 4.0 International License.
           </p>
           <p>
@@ -31,17 +31,8 @@ function InfoScreen(props) {
             <li>You must give appropriate credit and indicate if changes were made.</li>
             <li>You must distribute under the same license as the original, **even if modified**</li>
           </ul>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime nam hic architecto quod modi, accusantium,
-            consectetur illum enim ex, officia distinctio soluta. Distinctio consequuntur eveniet accusantium minus fuga
-            aperiam! Dolorum porro maxime fugiat tempora ratione asperiores ducimus repudiandae ullam reprehenderit
-            perferendis explicabo expedita, in blanditiis doloremque dolor enim? Saepe perferendis perspiciatis nobis
-            est, commodi tenetur cupiditate quo vel quasi dolor cumque labore, omnis iure ipsa quod quas excepturi sunt
-            id rerum dolorum voluptate suscipit similique? Nobis quae mollitia ea cumque accusamus amet rerum similique,
-            ducimus asperiores quam quia quidem doloribus. Temporibus consequuntur dolores alias quisquam perferendis
-            minus enim impedit recusandae!
-          </p>
-          <button onClick={() => props.setInfoShown(false)}> Back</button>
+
+            <button style={{marginBottom:"100px", height:"100px", fontSize:"3rem"}} onClick={() => props.setInfoShown(false)}> Back</button>
         </div>
       </div>
     </div>

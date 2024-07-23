@@ -25,6 +25,7 @@ body {
   width: 100vw;
   height: 100vh;
   background: radial-gradient(circle, rgba(3,6,17,1) 0%, rgba(60,75,187,1) 30%, rgba(25,32,82,1) 46%, rgba(38,11,11,1) 100%);;
+  
 }
 
 body, html{
@@ -43,7 +44,10 @@ body, html{
 }
 
 .content {
-overflow: scroll;
+overflow:auto;
 height: 100%;
 background-color: transparent;
+text-align: justify;
+padding: 10px;
+margin-top: 50px;
 }
