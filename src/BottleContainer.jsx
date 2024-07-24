@@ -15,12 +15,10 @@ function BottleContainer(props) {
 
   const isPortrait = window.innerHeight > window.innerWidth;
 
-  let height
+  let height;
   if (isPortrait) {
-    console.log('portrait')
      height = (screenHeight * 0.14) / (BOTTLE_CAPACITY * 0.8);
   } else {
-    console.log('landscape')
      height = (screenHeight * 0.11) / (BOTTLE_CAPACITY * 0.9);
   }
   // const height = (screenHeight * 0.14) / (BOTTLE_CAPACITY * 0.8);
@@ -73,6 +71,8 @@ function BottleContainer(props) {
     }
   }, [props.bottleArray,selectedBottles]);
 
+
+  let numTilesSameColorOfOrigin=1;
   // pours liquids from one bottle to another
   const pourLiquidsToTargetBottle = () => {
     const newState = structuredClone(props.bottleArray); // Make a deep copy
@@ -85,7 +85,7 @@ function BottleContainer(props) {
     }
 
     const freeSlotsInDestination = BOTTLE_CAPACITY - arrayDestination.length;
-    let numTilesSameColorOfOrigin = 1;
+    numTilesSameColorOfOrigin = 1;
     for (let i = 1; i < arrayOrigin.length; i++) {
       if (arrayOrigin[i].color === arrayOrigin[0].color && arrayOrigin[i].uncovered) {
         numTilesSameColorOfOrigin++;
@@ -106,16 +106,15 @@ function BottleContainer(props) {
         newState[index][0].uncovered = true;
       }
     }
-
     props.setBottleArray(newState);
-    
   };
 
   const updateUndoList = () => {
     const newUndoList = structuredClone(props.undoList)
-    const newUndoItem = [selectedBottles[0],selectedBottles[1]]
+    const newUndoItem = [selectedBottles[0],selectedBottles[1],numTilesSameColorOfOrigin]
     newUndoList.push(newUndoItem)
     props.setUndoList(newUndoList)
+    numTilesSameColorOfOrigin = 1;
   }
 
   const checkIfBottleComplete = () => {
