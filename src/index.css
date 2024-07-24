@@ -34,7 +34,6 @@ body, html{
 }
 
 .background {
-    background-image: url('your-background-image.jpg'); /* Use your desired image */
     background-size: cover;  /* Cover the entire screen */
     background-attachment: fixed;  /* Keep the background fixed */
     height: 100vh; /* Full viewport height */
