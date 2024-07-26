@@ -76,3 +76,22 @@ h1{
   text-shadow: 1px 1px 5px limegreen;
   color:lawngreen
 }
+
+.backbutton{
+  margin-bottom: 100px;
+  height:50px;
+  font-size: 2rem;
+  width: 30%;
+  text-align: center;
+}
+
+
+@media screen and (orientation: portrait) {
+  .backbutton{
+    margin-bottom: 100px;
+    height:50px;
+    font-size: 2rem;
+    text-align: center;
+    align-self: center;
+  }
+}

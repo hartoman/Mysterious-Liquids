@@ -32,7 +32,7 @@ function InfoScreen(props) {
             <li>You must distribute under the same license as the original, **even if modified**</li>
           </ul>
 
-            <button style={{marginBottom:"100px", height:"100px", fontSize:"3rem"}} onClick={() => props.setInfoShown(false)}> Back</button>
+            <button className={classes.backbutton} onClick={() => props.setInfoShown(false)}> Back</button>
         </div>
       </div>
     </div>

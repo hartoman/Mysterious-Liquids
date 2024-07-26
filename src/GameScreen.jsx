@@ -8,8 +8,8 @@ const minMaxValues = {
   bottleCapacityMax: 6,
   numBottlesMin: 2,
   numBottlesMax: 8,
-  numEmptyBottlesMin: 1,
-  numEmptyBottlesMax: 3,
+  numEmptyBottlesMin: 2,
+  numEmptyBottlesMax: 4,
 };
 
 function GameScreen() {
@@ -141,11 +141,13 @@ function GameScreen() {
   // undo last move(s)
   const handleUndo = () => {
     if (undoList.length > 0) {
-        const lastUndo = undoList.pop();
       const undoneBottleArray = structuredClone(bottleArray);
-      const numberLiquidsToUndo = lastUndo[2];
 
+      const lastUndo = undoList[undoList.length-1];
+      const numberLiquidsToUndo = lastUndo[2];
+   
       for (let i = 0; i < numberLiquidsToUndo; i++){
+        undoList.pop();
         const lastMovedLiquid = undoneBottleArray[lastUndo[1]].pop();
         undoneBottleArray[lastUndo[0]].unshift(lastMovedLiquid);
       }
@@ -162,7 +164,7 @@ function GameScreen() {
 
   const randomizeAll = () => {
     setEmptyBottles((e) => getRandomNumber(minMaxValues.numEmptyBottlesMin, minMaxValues.numEmptyBottlesMax));
-    setBeginUncovered((u) => getRandomBoolean()) /
+    setBeginUncovered((u) => getRandomBoolean());
     setNumBottles((n) => getRandomNumber(minMaxValues.numBottlesMin, minMaxValues.numBottlesMax));
     setBottleCapacity((b) => getRandomNumber(minMaxValues.bottleCapacityMin, minMaxValues.bottleCapacityMax));
   };

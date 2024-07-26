@@ -111,8 +111,11 @@ function BottleContainer(props) {
 
   const updateUndoList = () => {
     const newUndoList = structuredClone(props.undoList)
-    const newUndoItem = [selectedBottles[0],selectedBottles[1],numTilesSameColorOfOrigin]
-    newUndoList.push(newUndoItem)
+    const newUndoItem = [selectedBottles[0], selectedBottles[1], numTilesSameColorOfOrigin]
+    for (let i = 0; i < numTilesSameColorOfOrigin; i++){
+      newUndoList.push(newUndoItem)
+    }
+    
     props.setUndoList(newUndoList)
     numTilesSameColorOfOrigin = 1;
   }
