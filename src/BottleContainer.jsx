@@ -2,25 +2,25 @@ import { useState, useEffect, useRef } from "react";
 import Bottle from "./Bottle";
 import * as classes from "./BottleContainer.module.css";
 
-const [BOTTLE_CAPACITY, NUM_BOTTLES, NUM_EMPTY_BOTTLES] = [4, 4, 2];
-const height = (window.screen.height*0.15)/(BOTTLE_CAPACITY*1.2)
-
-const screenHeight = window.screen.height;
 
 function BottleContainer(props) {
 
   const [selectedBottles, setSelectedBottle] = useState([-1, -1]);
   const [isAnimating, setIsAnimating] = useState(-1);
   const BOTTLE_CAPACITY = props.bottleCapacity;
-
+  const screenHeight = window.screen.height;
+/*
   const isPortrait = window.innerHeight > window.innerWidth;
 
   let height;
   if (isPortrait) {
-     height = (screenHeight * 0.14) / (BOTTLE_CAPACITY * 0.8);
+     height = (screenHeight*0.15 ) / (BOTTLE_CAPACITY+1 );
   } else {
-     height = (screenHeight * 0.11) / (BOTTLE_CAPACITY * 0.9);
-  }
+     height = (screenHeight*0.15) / (BOTTLE_CAPACITY );
+  }*/
+ // console.log(screenHeight)
+  const height = Math.floor((screenHeight*0.18 ) / (BOTTLE_CAPACITY ))
+//  console.log(height)
   // const height = (screenHeight * 0.14) / (BOTTLE_CAPACITY * 0.8);
 
   const handleClick = (key) => {
@@ -141,7 +141,8 @@ function BottleContainer(props) {
     <div className={classes.container}>
       {props.bottleArray.map((_, index) => (
         <div
-          key={index}
+          key={`bottle-${index}`}
+
           onClick={() => handleClick(index)}
           className={`${classes.bottle} 
           ${index === selectedBottles[0] || index === selectedBottles[1] ? classes.selected : ""}
@@ -149,6 +150,7 @@ function BottleContainer(props) {
           `}
         >
           <Bottle
+            bottleNum={`bottle-${index}`}
             contents={props.bottleArray[index]}
             height={height}
             isComplete={props.bottlesComplete.includes(index) ? true : false}

@@ -2,6 +2,8 @@ import { useState } from "react";
 import * as classes from "./Bottle.module.css";
 
 function Bottle(props) {
+
+  const bottleNum = props.bottleNum;
   return (
     <div
       className={`${classes.bottleStyle}
@@ -9,8 +11,8 @@ function Bottle(props) {
     >
       {props.contents.map((_, index) => (
         <div
-          key={index}
-          style={{ height: `${props.height}px`, zIndex: -1 }}
+          key={`${bottleNum}-liquid-${index}`}
+          style={{ height: `${props.height}px`, zIndex: -1 , maxHeight:`${props.height}px`}}
           className={`
             ${
               props.contents[index].uncovered === false
