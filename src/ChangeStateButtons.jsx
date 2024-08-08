@@ -1,17 +1,19 @@
 import classes from "./ChangeStateButtons.module.css";
 
 function ChangeStateButtons(props) {
-    const increaseState = (increaseBy = 1) => {
-        if (props.state<props.maxVal) {
-            const increasedState = props.state + increaseBy;
-            props.setState(increasedState);
-      }
+  const increaseState = (increaseBy = 1) => {
+    if (props.state[props.stateId] < props.maxVal) {
+      const newGameVar = structuredClone(props.state);
+      newGameVar[props.stateId] = props.state[props.stateId] + increaseBy;
+      props.setState(newGameVar);
+    }
   };
-    const decreaseState = (decreaseBy = 1) => {
-        if (props.state > props.minVal) {
-            const decreasedState = props.state - decreaseBy;
-            props.setState(decreasedState);
-        }
+  const decreaseState = (decreaseBy = 1) => {
+    if (props.state[props.stateId] > props.minVal) {
+      const newGameVar = structuredClone(props.state);
+      newGameVar[props.stateId] = props.state[props.stateId] - decreaseBy;
+      props.setState(newGameVar);
+    }
   };
 
   return (
@@ -21,7 +23,7 @@ function ChangeStateButtons(props) {
         <button className={classes.controlButton} onClick={() => decreaseState()}>
           -
         </button>
-        <div className={classes.displayState}>{props.state}</div>
+        <div className={classes.displayState}>{props.state[props.stateId]}</div>
         <button className={classes.controlButton} onClick={() => increaseState()}>
           +
         </button>

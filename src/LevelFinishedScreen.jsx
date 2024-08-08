@@ -12,12 +12,13 @@ function LevelFinishedScreen(props) {
   };
 
   const toggleUncovered = () => {
-    const reverseUncovered = !props.passedProps.states.beginUncovered;
-    props.passedProps.setStates.setBeginUncovered(reverseUncovered);
+    const newGameVar = structuredClone(props.passedProps.gameVars)
+    newGameVar.beginUncovered = !props.passedProps.gameVars.beginUncovered;
+    props.passedProps.setGameVars(newGameVar);
   };
 
   const newRandomizedGame = () => {
-    props.passedProps.randomizeAll();
+    props.passedProps.setGameVars( props.passedProps.randomizeAll());
     props.passedProps.newGame();
   };
 
@@ -46,41 +47,41 @@ function LevelFinishedScreen(props) {
             <h2> Select Level</h2>
             <div className={classes.buttonContainer}>
               <ChangeStateButtons
-                stateId="numColors"
+                stateId="numBottles"
                 labelText="Number of Bottles"
-                state={props.passedProps.states.numBottles}
-                setState={props.passedProps.setStates.setNumBottles}
+                state={props.passedProps.gameVars}
+                setState={props.passedProps.setGameVars}
                 minVal={props.minMaxValues.numBottlesMin}
                 maxVal={props.minMaxValues.numBottlesMax}
               />
               <ChangeStateButtons
-                stateId="capacity"
+                stateId="bottleCapacity"
                 labelText="Bottle Capacity"
-                state={props.passedProps.states.bottleCapacity}
-                setState={props.passedProps.setStates.setBottleCapacity}
+                state={props.passedProps.gameVars}
+                setState={props.passedProps.setGameVars}
                 minVal={props.minMaxValues.bottleCapacityMin}
                 maxVal={props.minMaxValues.bottleCapacityMax}
               />
               <ChangeStateButtons
-                stateId="numEmpty"
+                stateId="numEmptyBottles"
                 labelText="Number of Empty"
-                state={props.passedProps.states.numEmptyBottles}
-                setState={props.passedProps.setStates.setEmptyBottles}
+                state={props.passedProps.gameVars}
+                setState={props.passedProps.setGameVars}
                 minVal={props.minMaxValues.numEmptyBottlesMin}
                 maxVal={props.minMaxValues.numEmptyBottlesMax}
               />
               <div>
-                <label htmlFor="startCovered">Mysterious Liquids</label>
+                <label htmlFor="beginUncovered">Mysterious Liquids</label>
                 <input
-                  id="startCovered"
+                  id="beginUncovered"
                   type="checkbox"
                   onChange={() => toggleUncovered()}
-                  checked={!props.passedProps.states.beginUncovered}
+                  checked={!props.passedProps.gameVars.beginUncovered}
                 />
               </div>
               <div>
                 <button onClick={() => props.passedProps.newGame()}> Play this level </button>
-                <button onClick={() => props.passedProps.randomizeAll()}> Randomize </button>
+                <button onClick={() => props.passedProps.setGameVars(props.passedProps.randomizeAll())}> Randomize </button>
               </div>
             </div>
           </div>
