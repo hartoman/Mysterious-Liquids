@@ -21,13 +21,13 @@ function GameScreen() {
     }
   }, [bottlesComplete,gameVars.numBottles]);
 
-  /*
+  /* TODO THE PROBLEM IS HERE */
   useEffect(() => {
     if (!levelFinished) {
-    //  initializeBottleArray();
+      initializeBottleArray();
     } 
   }, [levelFinished]);
-*/
+
   const initializeBottleArray = () => {
 
     setBottlesComplete([]);
