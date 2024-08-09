@@ -13,19 +13,23 @@ function GameScreen() {
   const [levelFinished, setLevelFinished] = useState(true);
   const [undoList, setUndoList] = useState([]);
 
+  console.log('state updated')
+
   useEffect(() => {
-    if (bottlesComplete.length === gameVars.numBottles && gameVars.numBottles !== 0) {
+    if (bottlesComplete.length && bottlesComplete.length === gameVars.numBottles && gameVars.numBottles !== 0) {
       setLevelFinished(true);
     }
-  }, [bottlesComplete]);
+  }, [bottlesComplete,gameVars.numBottles]);
 
+  /*
   useEffect(() => {
     if (!levelFinished) {
-      initializeBottleArray();
+    //  initializeBottleArray();
     } 
   }, [levelFinished]);
-
+*/
   const initializeBottleArray = () => {
+
     setBottlesComplete([]);
     setUndoList([]);
     const allBottles = functions.createBottleArray(gameVars)
@@ -66,12 +70,12 @@ function GameScreen() {
             setBottleArray={setBottleArray}
             bottlesComplete={bottlesComplete}
             setBottlesComplete={setBottlesComplete}
-            bottleCapacity={gameVars.bottleCapacity}
+            bottleCapacity={gameVars?.bottleCapacity}
             setUndoList={setUndoList}
             undoList={undoList}
           />
           <button onClick={() => gotoLevelFinishedScreen()}>New Level</button>
-          <button onClick={() => handleReset()} disabled={undoList.length === 0}>
+          <button onClick={() => handleReset()} disabled={undoList?.length === 0}>
             Start Over
           </button>
           <button onClick={() => handleUndo()} disabled={true}>

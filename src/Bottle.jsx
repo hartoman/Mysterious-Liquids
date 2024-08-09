@@ -5,10 +5,10 @@ function Bottle(props) {
 
   function getClassName(index) {
     let className;
-    if (!props.contents[index].uncovered) {
+    if (!props.contents[index]?.uncovered) {
       className = classes.hidden;
     } else {
-      const color = props.contents[index].color;
+      const color = props.contents[index]?.color;
       switch (color) {
         case 1:
           className = classes.yellow;
