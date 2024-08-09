@@ -1,9 +1,44 @@
-import { useState } from "react";
 import * as classes from "./Bottle.module.css";
 
 function Bottle(props) {
-
   const bottleNum = props.bottleNum;
+
+  function getClassName(index) {
+    let className;
+    if (!props.contents[index].uncovered) {
+      className = classes.hidden;
+    } else {
+      const color = props.contents[index].color;
+      switch (color) {
+        case 1:
+          className = classes.yellow;
+          break;
+        case 2:
+          className = classes.green;
+          break;
+        case 3:
+          className = classes.blue;
+          break;
+        case 4:
+          className = classes.red;
+          break;
+        case 5:
+          className = classes.purple;
+          break;
+        case 6:
+          className = classes.turquoise;
+          break;
+        case 7:
+          className = classes.white;
+          break;
+        case 8:
+          className = classes.orange;
+          break;
+      }
+    }
+    return className;
+  }
+
   return (
     <div
       className={`${classes.bottleStyle}
@@ -12,29 +47,9 @@ function Bottle(props) {
       {props.contents.map((_, index) => (
         <div
           key={`${bottleNum}-liquid-${index}`}
-          style={{ height: `${props.height}px`, zIndex: -1 , maxHeight:`${props.height}px`}}
+          style={{ height: `${props.height}px`, zIndex: -1, maxHeight: `${props.height}px` }}
           className={`
-            ${
-              props.contents[index].uncovered === false
-                ? classes.hidden
-                : props.contents[index].color === 1
-                ? classes.yellow
-                : props.contents[index].color === 2
-                ? classes.green
-                : props.contents[index].color === 3
-                ? classes.blue
-                : props.contents[index].color === 4
-                ? classes.red
-                : props.contents[index].color === 5
-                ? classes.purple
-                : props.contents[index].color === 6
-                ? classes.turquoise
-                : props.contents[index].color === 7
-                ? classes.white
-                : props.contents[index].color === 8
-                ? classes.orange
-                : ""
-            }
+            ${getClassName(index)}
               ${props.isAnimating ? classes.finishing : ""}
               `}
         ></div>

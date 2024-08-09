@@ -2,6 +2,7 @@ import { useState } from "react";
 import * as classes from "./LevelFinishedScreen.module.css";
 import ChangeStateButtons from "./ChangeStateButtons";
 import InfoScreen from "./InfoScreen";
+import * as functions from "./functions.js"
 
 function LevelFinishedScreen(props) {
   const [randomScreen, setRandomScreen] = useState(true);
@@ -18,7 +19,7 @@ function LevelFinishedScreen(props) {
   };
 
   const newRandomizedGame = () => {
-    props.passedProps.setGameVars( props.passedProps.randomizeAll());
+    props.passedProps.setGameVars( functions.randomizeAll());
     props.passedProps.newGame();
   };
 
@@ -51,24 +52,24 @@ function LevelFinishedScreen(props) {
                 labelText="Number of Bottles"
                 state={props.passedProps.gameVars}
                 setState={props.passedProps.setGameVars}
-                minVal={props.minMaxValues.numBottlesMin}
-                maxVal={props.minMaxValues.numBottlesMax}
+                minVal={functions.minMaxValues.numBottlesMin}
+                maxVal={functions.minMaxValues.numBottlesMax}
               />
               <ChangeStateButtons
                 stateId="bottleCapacity"
                 labelText="Bottle Capacity"
                 state={props.passedProps.gameVars}
                 setState={props.passedProps.setGameVars}
-                minVal={props.minMaxValues.bottleCapacityMin}
-                maxVal={props.minMaxValues.bottleCapacityMax}
+                minVal={functions.minMaxValues.bottleCapacityMin}
+                maxVal={functions.minMaxValues.bottleCapacityMax}
               />
               <ChangeStateButtons
                 stateId="numEmptyBottles"
                 labelText="Number of Empty"
                 state={props.passedProps.gameVars}
                 setState={props.passedProps.setGameVars}
-                minVal={props.minMaxValues.numEmptyBottlesMin}
-                maxVal={props.minMaxValues.numEmptyBottlesMax}
+                minVal={functions.minMaxValues.numEmptyBottlesMin}
+                maxVal={functions.minMaxValues.numEmptyBottlesMax}
               />
               <div>
                 <label htmlFor="beginUncovered">Mysterious Liquids</label>
@@ -81,7 +82,7 @@ function LevelFinishedScreen(props) {
               </div>
               <div>
                 <button onClick={() => props.passedProps.newGame()}> Play this level </button>
-                <button onClick={() => props.passedProps.setGameVars(props.passedProps.randomizeAll())}> Randomize </button>
+                <button onClick={() => props.passedProps.setGameVars(functions.randomizeAll())}> Randomize </button>
               </div>
             </div>
           </div>
