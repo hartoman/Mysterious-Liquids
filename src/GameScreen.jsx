@@ -22,11 +22,12 @@ function GameScreen() {
   }, [bottlesComplete,gameVars.numBottles]);
 
   /* TODO THE PROBLEM IS HERE */
+  /*
   useEffect(() => {
     if (!levelFinished) {
       initializeBottleArray();
     } 
-  }, [levelFinished]);
+  }, [levelFinished]);*/
 
   const initializeBottleArray = () => {
 
@@ -36,7 +37,7 @@ function GameScreen() {
     setBottleArray(allBottles);
     const backup = structuredClone(allBottles);
     setResetGame(backup);
-    setLevelFinished(false);
+  //  setLevelFinished(false);
   };
 
   // resets the game to the beginning of the level
@@ -47,7 +48,8 @@ function GameScreen() {
   };
 
   const handleNew = () => {
-    initializeBottleArray();
+ //   initializeBottleArray();
+    setLevelFinished(false)
   };
 
   const gotoLevelFinishedScreen = () => {
@@ -73,6 +75,7 @@ function GameScreen() {
             bottleCapacity={gameVars?.bottleCapacity}
             setUndoList={setUndoList}
             undoList={undoList}
+            initializeBottleArray={initializeBottleArray}
           />
           <button onClick={() => gotoLevelFinishedScreen()}>New Level</button>
           <button onClick={() => handleReset()} disabled={undoList?.length === 0}>
