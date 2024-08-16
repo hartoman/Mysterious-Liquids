@@ -9,23 +9,24 @@ function BottleContainer(props) {
   const [isAnimating, setIsAnimating] = useState(-1);
   const BOTTLE_CAPACITY = props.bottleCapacity;
   const screenHeight = window.screen.height;
- // const [height, setHeight] = useState(0);
+  const [height, setHeight] = useState(0);
 
-  let height;
-  //useEffect(() => {
+ 
+
+
+  function defineHeight() {
     const isPortrait = window.innerHeight > window.innerWidth;
-  //let currentHeight;
-  if (isPortrait) {
-    height = Math.floor((screenHeight*0.18 ) / (BOTTLE_CAPACITY ));
-  } else {
-    height = Math.floor((screenHeight*0.09) / (BOTTLE_CAPACITY-1 ));
+    if (isPortrait) {
+      return  Math.floor((screenHeight*0.18 ) / (BOTTLE_CAPACITY ));
+    } else {
+      return  Math.floor((screenHeight*0.09) / (BOTTLE_CAPACITY-1 ));
+    }
   }
-    
-   //setHeight(currentHeight) 
-//},[])
-console.log('state of bottlecontainer updated')
+
+
   useEffect(() => {
     props.initializeBottleArray()
+    setHeight(defineHeight())
 },[])
 
   const handleClick = (key) => {
