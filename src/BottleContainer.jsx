@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Bottle from "./Bottle";
 import * as classes from "./BottleContainer.module.css";
 
@@ -14,14 +14,14 @@ function BottleContainer(props) {
  
 
 
-  function defineHeight() {
+  const  defineHeight= useCallback(()=> {
     const isPortrait = window.innerHeight > window.innerWidth;
     if (isPortrait) {
       return  Math.floor((screenHeight*0.18 ) / (BOTTLE_CAPACITY ));
     } else {
       return  Math.floor((screenHeight*0.09) / (BOTTLE_CAPACITY-1 ));
     }
-  }
+  },[])
 
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function BottleContainer(props) {
     setHeight(defineHeight())
 },[])
 
-  const handleClick = (key) => {
+  const handleClick = useCallback((key) => {
     
     if (isAnimating !== -1) {
       return
@@ -61,7 +61,7 @@ function BottleContainer(props) {
           , 500);
       }
     }
-  }
+  },[props.bottleArray,selectedBottles,isAnimating,BOTTLE_CAPACITY])
 
   useEffect(() => {
     if (!(selectedBottles[0] === -1 || selectedBottles[1] === -1)) {
@@ -136,9 +136,10 @@ function BottleContainer(props) {
       setIsAnimating(index);
       // give the cool animation time to display
       setTimeout(() => {
-        props.setBottlesComplete([...props.bottlesComplete, props.bottleArray.indexOf(arrayDestination)]);
+        const bottleIndex = props.bottleArray.indexOf(arrayDestination);
+        props.setBottlesComplete(prevBottlesComplete => [...prevBottlesComplete, bottleIndex]);
         setIsAnimating(-1)
-      }, 750);
+      }, 1000);
     }
   };
 
