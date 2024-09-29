@@ -8,25 +8,9 @@ function BottleContainer(props) {
   const [selectedBottles, setSelectedBottle] = useState([-1, -1]);
   const [isAnimating, setIsAnimating] = useState(-1);
   const BOTTLE_CAPACITY = props.bottleCapacity;
-  const screenHeight = window.screen.height;
-  const [height, setHeight] = useState(0);
-
- 
-
-
-  const  defineHeight= useCallback(()=> {
-    const isPortrait = window.innerHeight > window.innerWidth;
-    if (isPortrait) {
-      return  Math.floor((screenHeight*0.18 ) / (BOTTLE_CAPACITY ));
-    } else {
-      return  Math.floor((screenHeight*0.09) / (BOTTLE_CAPACITY-1 ));
-    }
-  },[])
-
 
   useEffect(() => {
     props.initializeBottleArray()
-    setHeight(defineHeight())
 },[])
 
   const handleClick = useCallback((key) => {
@@ -159,7 +143,7 @@ function BottleContainer(props) {
           <Bottle
             bottleNum={`bottle-${index}`}
             contents={props.bottleArray[index]}
-            height={height}
+            maxCapacity={BOTTLE_CAPACITY}
             isComplete={props.bottlesComplete.includes(index) ? true : false}
             isAnimating={isAnimating === index ? true : false}
           />

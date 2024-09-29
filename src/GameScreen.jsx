@@ -81,9 +81,6 @@ function GameScreen() {
           <button onClick={() => handleReset()} disabled={undoList?.length === 0}>
             Start Over
           </button>
-          <button onClick={() => handleUndo()} disabled={true}>
-            Undo
-          </button>
         </>
       )}
     </>
