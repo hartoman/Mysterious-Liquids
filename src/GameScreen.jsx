@@ -37,7 +37,6 @@ function GameScreen() {
     setBottleArray(allBottles);
     const backup = structuredClone(allBottles);
     setResetGame(backup);
-  //  setLevelFinished(false);
   };
 
   // resets the game to the beginning of the level
