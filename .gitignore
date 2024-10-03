@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+src/Dummy.jsx
+src/DummyChild.jsx
+src/MemoryUsage.jsx
+src/MemoryUsage.module.css

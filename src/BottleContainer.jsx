@@ -8,6 +8,8 @@ function BottleContainer(props) {
   const [selectedBottles, setSelectedBottle] = useState([-1, -1]);
   const [isAnimating, setIsAnimating] = useState(-1);
   const BOTTLE_CAPACITY = props.bottleCapacity;
+  let revertBottle;
+  let finishingAnimation;
 
   useEffect(() => {
     props.initializeBottleArray()
@@ -41,7 +43,7 @@ function BottleContainer(props) {
       } else {
         //sets destination bottle
         setSelectedBottle((b) => [b[0], key]);
-        setTimeout(() => setSelectedBottle((b) => [-1, -1])
+        revertBottle = setTimeout(() => setSelectedBottle((b) => [-1, -1])
           , 500);
       }
     }
@@ -61,6 +63,13 @@ function BottleContainer(props) {
     }
   }, [props.bottleArray,selectedBottles]);
 
+   // Cleanup function to clear timeout if the component unmounts or if a new selection is made
+   useEffect(() => {
+    return () => {
+      clearTimeout(revertBottle);
+      clearTimeout(finishingAnimation);      
+    }
+}, []);
 
   let numTilesSameColorOfOrigin=1;
   // pours liquids from one bottle to another
@@ -119,11 +128,11 @@ function BottleContainer(props) {
       console.log("bottle complete!");
       setIsAnimating(index);
       // give the cool animation time to display
-      setTimeout(() => {
+      finishingAnimation = setTimeout(() => {
         const bottleIndex = props.bottleArray.indexOf(arrayDestination);
         props.setBottlesComplete(prevBottlesComplete => [...prevBottlesComplete, bottleIndex]);
         setIsAnimating(-1)
-      }, 1000);
+      }, 750);
     }
   };
 

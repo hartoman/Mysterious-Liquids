@@ -1,74 +1,60 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import * as classes from "./Bottle.module.css";
 
 function Bottle(props) {
   const bottleNum = props.bottleNum;
-  const bottleRef = useRef(null);  // Create a ref for the bottle div
-  const [maxChildHeight, setMaxChildHeight] = useState(0);  // State to hold the max height for children
+  const bottleRef = useRef(null); 
+  const [maxChildHeight, setMaxChildHeight] = useState(0); 
 
   useEffect(() => {
-    // This will run after the component mounts and whenever its dimensions change
     const updateMaxChildHeight = () => {
       if (bottleRef.current) {
-        const bottleHeight = bottleRef.current.clientHeight;  // Get the actual height of the bottle
-        setMaxChildHeight(bottleHeight / props.maxCapacity);  // Divide by maxCapacity
+        const bottleHeight = bottleRef.current.clientHeight; 
+        setMaxChildHeight(bottleHeight / props.maxCapacity); 
       }
     };
 
-    updateMaxChildHeight(); // Call the function to set the initial value
+    updateMaxChildHeight(); // Initial call
 
-    // Optional: Add a resize event listener if necessary
     window.addEventListener('resize', updateMaxChildHeight);
 
     return () => {
-      window.removeEventListener('resize', updateMaxChildHeight); // Clean up on unmount
+      window.removeEventListener('resize', updateMaxChildHeight); 
     };
-  }, [props.maxCapacity]); // Re-run the effect if maxCapacity changes
+  }, [props.maxCapacity]); 
 
-  function getClassName(index) {
-    let className;
+  const getClassName = useMemo(() => (index) => {
     if (!props.contents[index]?.uncovered) {
-      className = classes.hidden;
+      return classes.hidden;
     } else {
       const color = props.contents[index]?.color;
       switch (color) {
         case 1:
-          className = classes.yellow;
-          break;
+          return classes.yellow;
         case 2:
-          className = classes.green;
-          break;
+          return classes.green;
         case 3:
-          className = classes.blue;
-          break;
+          return classes.blue;
         case 4:
-          className = classes.red;
-          break;
+          return classes.red;
         case 5:
-          className = classes.purple;
-          break;
+          return classes.purple;
         case 6:
-          className = classes.turquoise;
-          break;
+          return classes.turquoise;
         case 7:
-          className = classes.white;
-          break;
+          return classes.white;
         case 8:
-          className = classes.orange;
-          break;
+          return classes.orange;
         default:
-          className = ''; // Default class name if no color matches
-          break;
+          return ''; 
       }
     }
-    return className;
-  }
+  }, [props.contents]);  // It's good to memoize the function, but contents is quite dynamic
 
   return (
     <div
-      className={`${classes.bottleStyle}
-                    ${props.isComplete ? classes.complete : ""}`}
-      ref={bottleRef}  // Attach the ref to the bottle div
+      className={`${classes.bottleStyle} ${props.isComplete ? classes.complete : ""}`}
+      ref={bottleRef}  
     >
       {props.contents.map((_, index) => (
         <div
