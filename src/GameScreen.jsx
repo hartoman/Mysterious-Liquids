@@ -11,7 +11,7 @@ function GameScreen() {
   const [resetGame, setResetGame] = useState([]);
   const [bottlesComplete, setBottlesComplete] = useState([]);
   const [levelFinished, setLevelFinished] = useState(true);
-  const [undoList, setUndoList] = useState([]);
+  const [undoList, setUndoList] = useState(false);
 
   console.log('state updated')
 
@@ -32,7 +32,7 @@ function GameScreen() {
   const initializeBottleArray = () => {
 
     setBottlesComplete([]);
-    setUndoList([]);
+    setUndoList(false);
     const allBottles = functions.createBottleArray(gameVars)
     setBottleArray(allBottles);
     const backup = structuredClone(allBottles);
@@ -43,7 +43,7 @@ function GameScreen() {
   const handleReset = () => {
     setBottleArray(resetGame);
     setBottlesComplete([]);
-    setUndoList([]);
+    setUndoList(false);
   };
 
   const handleNew = () => {
@@ -77,7 +77,7 @@ function GameScreen() {
             initializeBottleArray={initializeBottleArray}
           />
           <button onClick={() => gotoLevelFinishedScreen()}>New Level</button>
-          <button onClick={() => handleReset()} disabled={undoList?.length === 0}>
+          <button onClick={() => handleReset()} disabled={!undoList}>
             Start Over
           </button>
         </>
