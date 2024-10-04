@@ -16,10 +16,11 @@ function GameScreen() {
   console.log('state updated')
 
   useEffect(() => {
-    if (bottlesComplete.length && bottlesComplete.length === gameVars.numBottles && gameVars.numBottles !== 0) {
+    if (bottlesComplete?.length && bottlesComplete?.length === gameVars?.numBottles && gameVars?.numBottles !== 0) {
+      setUndoList(false);
       setLevelFinished(true);
     }
-  }, [bottlesComplete,gameVars.numBottles]);
+  }, [bottlesComplete,gameVars?.numBottles]);
 
   /* TODO THE PROBLEM IS HERE */
   /*
