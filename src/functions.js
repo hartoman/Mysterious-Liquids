@@ -35,13 +35,18 @@ export const createBottleArray = (gameVars) => {
       let randomIndex = getRandomNumber(0, totalLiquids.length - 1);
       let randomLiquid = totalLiquids[randomIndex];
       // make sure that we cannot begin with already sorted bottles
-      if (j === gameVars.bottleCapacity - 1) {
-        while (areAllElementsSame(bottle) && bottle[0].color === randomLiquid.color) {
+      if (j === gameVars.bottleCapacity - 1 && areAllElementsSame(bottle) && bottle[0].color === randomLiquid.color) {
+        let foundDifferent = false;
+        for (let attempt = 0; attempt < 10; attempt++) {
           randomIndex = getRandomNumber(0, totalLiquids.length - 1);
           randomLiquid = totalLiquids[randomIndex];
+          if (bottle[0].color !== randomLiquid.color) {
+            foundDifferent = true;
+            break;
+          }
         }
+        // if not found, use the last picked, even if same color
       }
-
       totalLiquids.splice(randomIndex, 1);
       bottle.push(randomLiquid);
     }

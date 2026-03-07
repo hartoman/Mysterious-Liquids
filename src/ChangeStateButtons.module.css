@@ -1,8 +1,8 @@
 .controlButton{
     font-size: 2rem;
-    margin: 10px;
     display: inline-block;
-    width: 2rem;
+    min-width: 2rem;
+    padding: 0;
   }
   
   .displayState{

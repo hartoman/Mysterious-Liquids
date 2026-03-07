@@ -2,94 +2,99 @@ import { useState, useEffect, useRef } from "react";
 import BottleContainer from "./BottleContainer";
 import LevelFinishedScreen from "./LevelFinishedScreen";
 import * as classes from "./GameScreen.module.css";
-import * as functions from "./functions.js"
+import * as functions from "./functions.js";
 
 function GameScreen() {
+	const [gameVars, setGameVars] = useState(functions.randomizeAll());
+	const [bottleArray, setBottleArray] = useState([]);
+	const [resetGame, setResetGame] = useState([]);
+	const [bottlesComplete, setBottlesComplete] = useState([]);
+	const [levelFinished, setLevelFinished] = useState(true);
+	const [undoList, setUndoList] = useState(false);
 
-  const [gameVars, setGameVars] = useState(functions.randomizeAll())
-  const [bottleArray, setBottleArray] = useState([]);
-  const [resetGame, setResetGame] = useState([]);
-  const [bottlesComplete, setBottlesComplete] = useState([]);
-  const [levelFinished, setLevelFinished] = useState(true);
-  const [undoList, setUndoList] = useState(false);
+	console.log("state updated");
 
-  console.log('state updated')
+	useEffect(() => {
+		if (
+			bottlesComplete?.length &&
+			bottlesComplete?.length === gameVars?.numBottles &&
+			gameVars?.numBottles !== 0
+		) {
+			setUndoList(false);
+			setLevelFinished(true);
+		}
+	}, [bottlesComplete, gameVars?.numBottles]);
 
-  useEffect(() => {
-    if (bottlesComplete?.length && bottlesComplete?.length === gameVars?.numBottles && gameVars?.numBottles !== 0) {
-      setUndoList(false);
-      setLevelFinished(true);
-    }
-  }, [bottlesComplete,gameVars?.numBottles]);
-
-  /* TODO THE PROBLEM IS HERE */
-  /*
+	/* TODO THE PROBLEM IS HERE */
+	/*
   useEffect(() => {
     if (!levelFinished) {
       initializeBottleArray();
     } 
   }, [levelFinished]);*/
 
-  const initializeBottleArray = () => {
+	const initializeBottleArray = () => {
+		setBottlesComplete([]);
+		setUndoList(false);
+		const allBottles = functions.createBottleArray(gameVars);
+		setBottleArray(allBottles);
+		const backup = structuredClone(allBottles);
+		setResetGame(backup);
+	};
 
-    setBottlesComplete([]);
-    setUndoList(false);
-    const allBottles = functions.createBottleArray(gameVars)
-    setBottleArray(allBottles);
-    const backup = structuredClone(allBottles);
-    setResetGame(backup);
-  };
+	// resets the game to the beginning of the level
+	const handleReset = () => {
+		setBottleArray(resetGame);
+		setBottlesComplete([]);
+		setUndoList(false);
+	};
 
-  // resets the game to the beginning of the level
-  const handleReset = () => {
-    setBottleArray(resetGame);
-    setBottlesComplete([]);
-    setUndoList(false);
-  };
+	const handleNew = () => {
+		//   initializeBottleArray();
+		setLevelFinished(false);
+	};
 
-  const handleNew = () => {
- //   initializeBottleArray();
-    setLevelFinished(false)
-  };
+	const gotoLevelFinishedScreen = () => {
+		setLevelFinished(true);
+	};
 
-  const gotoLevelFinishedScreen = () => {
-    setLevelFinished(true);
-  };
+	const passedProps = {
+		newGame: handleNew,
+		gameVars: gameVars,
+		setGameVars: setGameVars,
+	};
 
-  const passedProps = {
-    newGame: handleNew,
-    gameVars: gameVars,
-    setGameVars:setGameVars
-  };
-  
-  return (
-    <>
-      {levelFinished && <LevelFinishedScreen passedProps={passedProps}/>}
-      {!levelFinished && (
-        <>
-          <BottleContainer
-            bottleArray={bottleArray}
-            setBottleArray={setBottleArray}
-            bottlesComplete={bottlesComplete}
-            setBottlesComplete={setBottlesComplete}
-            bottleCapacity={gameVars?.bottleCapacity}
-            setUndoList={setUndoList}
-            undoList={undoList}
-            initializeBottleArray={initializeBottleArray}
-          />
-          <button onClick={() => gotoLevelFinishedScreen()}>New Level</button>
-          <button onClick={() => handleReset()} disabled={!undoList}>
-            Start Over
-          </button>
-        </>
-      )}
-    </>
-  );
+	return (
+		<>
+			{levelFinished && <LevelFinishedScreen passedProps={passedProps} />}
+			{!levelFinished && (
+				<>
+					<BottleContainer
+						key={levelFinished ? "finished" : "playing"}
+						bottleArray={bottleArray}
+						setBottleArray={setBottleArray}
+						bottlesComplete={bottlesComplete}
+						setBottlesComplete={setBottlesComplete}
+						bottleCapacity={gameVars?.bottleCapacity}
+						setUndoList={setUndoList}
+						undoList={undoList}
+						initializeBottleArray={initializeBottleArray}
+					/>
+					<div className={classes.btnContainer}>
+						<button onClick={() => gotoLevelFinishedScreen()}>New Level</button>
+						<button onClick={() => handleReset()} disabled={!undoList}>
+							Start Over
+						</button>
+					</div>
+				</>
+			)}
+		</>
+	);
 }
 
 export default GameScreen;
 
-  /*
+/*
   // undo last move(s)
   const handleUndo = () => {
     if (undoList.length > 0) {

@@ -14,23 +14,26 @@
   justify-content: flex-end;
   position: relative;
   z-index: 1;
-
-  background: black;
-  background: linear-gradient(90deg, rgba(100, 100, 100, 1) 0%, rgba(0, 0, 0, 1) 60%, rgba(100, 100, 100, 1) 100%);
+  background: linear-gradient(90deg, rgba(100, 100, 100, 0.5) 0%, rgba(0, 0, 0, 0.3) 60%, rgba(100, 100, 100, 0.5) 100%);
   
-  box-sizing: content-box;
 }
 
 @media screen and (orientation: portrait) {
   .bottleStyle {
     width: 10vw;
-    height: 20vh;
+    height: 20svh;
   }
 }
 
 .bottleStyle div {
   width: 100%;
   position: relative;
+  transition: max-height 0.3s ease-in;
+  max-height: 999px;
+
+  @starting-style {
+    max-height: 0;
+  }
 }
 
 .finishing {
@@ -54,6 +57,7 @@
   color: white;
   content: "?";
 }
+
 
 .yellow {
   background: rgb(255, 223, 0);
