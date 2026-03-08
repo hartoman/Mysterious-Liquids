@@ -1,8 +1,8 @@
 .backdrop {
-  position: absolute;
-  max-width: 100% !important;
-  width: 100%;
-  height: 100%;
+  position: fixed;
+  max-width: 100vw !important;
+  width: 100vw;
+  height: 100vh;
   top: 0;
   left: 0;
   display: flex;
@@ -28,6 +28,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow-y: auto;
 }
 
 .initialScreenContent {
@@ -85,7 +86,7 @@ h1{
 
 .modalBody.infoBackdrop {
   color: white;
-  width: 50%;
+  max-width: 1000px;
 }
 .modalBody.infoBackdrop h1{
  background-color: unset;
@@ -95,7 +96,7 @@ h1{
 
 @media screen and (orientation: portrait) {
   .modalBody.infoBackdrop {
-    width: 100%;
+    width: 100vw;
   }
 }
  @keyframes animated-bubbles {

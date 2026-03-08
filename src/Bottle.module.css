@@ -3,8 +3,8 @@
   border-top: none;
   border-radius: 8%;
   background-color: black;
-  height: 15vh;
-  width: 3rem;
+  height: 100px;
+  width: 32px;
   min-height: 12%;
   overflow: hidden;
   display: flex;
@@ -31,6 +31,19 @@
 .complete {
   opacity: 0.5;
   background-color: lightgray;
+}
+
+.hidden {
+  background: black;
+  background: linear-gradient(90deg, rgba(100, 100, 100, 1) 0%, rgba(0, 0, 0, 1) 60%, rgba(100, 100, 100, 1) 100%);
+}
+
+.hidden:before {
+  position: absolute;
+  display: flex;
+  left: 37%;
+  color: white;
+  content: "?";
 }
 
 .hidden {
