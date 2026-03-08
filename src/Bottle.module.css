@@ -27,10 +27,9 @@
 .finishing {
   animation: 0.25s linear 0s 3 running rainbow;
 }
-
-.complete {
+.complete div{
   opacity: 0.5;
-  background-color: lightgray;
+  background: lightgray !important;
 }
 
 .hidden {
@@ -72,40 +71,40 @@
 
 .green {
   background-image: 
-    linear-gradient(rgba(90, 201, 64, 0.5) 25%, 
-    rgba(90, 201, 64, 0.75) 50%, 
-    rgba(90, 201, 64, 0.75) 75%, 
-    rgba(90, 201, 64, 0.5) 100%
+    linear-gradient(rgba(90, 255, 64, 0.5) 25%, 
+    rgba(90, 255, 64, 0.75) 50%, 
+    rgba(90, 255, 64, 0.75) 75%, 
+    rgba(90, 255, 64, 0.5) 100%
     ), 
     url("./assets/bubbles.png");
 }
 
 .blue {
   background-image: 
-    linear-gradient(rgba(100, 155, 155, 0.5) 25%, 
-    rgba(100, 155, 155, 0.75) 50%, 
-    rgba(100, 155, 155, 0.75) 75%, 
-    rgba(100, 155, 155, 0.5) 100%
+    linear-gradient(rgba(0, 0, 255, 0.5) 25%, 
+    rgba(0, 0, 255, 0.75) 50%, 
+    rgba(0, 0, 255, 0.75) 75%, 
+    rgba(0, 0, 255, 0.5) 100%
     ), 
     url("./assets/bubbles.png");
 }
 
 .red {
   background-image: 
-    linear-gradient(rgba(255, 100, 200, 0.5) 25%, 
-    rgba(255, 100, 200, 0.75) 50%, 
-    rgba(255, 100, 200, 0.75) 75%, 
-    rgba(255, 100, 200, 0.5) 100%
+    linear-gradient(rgba(255, 0, 0, 0.5) 25%, 
+    rgba(255, 0, 0, 0.75) 50%, 
+    rgba(255, 0, 0, 0.75) 75%, 
+    rgba(255, 0, 0, 0.5) 100%
     ), 
     url("./assets/bubbles.png");
 }
 
 .purple {
   background-image: 
-    linear-gradient(rgba(231, 192, 229, 0.5) 25%, 
-    rgba(231, 192, 229, 0.75) 50%, 
-    rgba(231, 192, 229, 0.75) 75%, 
-    rgba(231, 192, 229, 0.5) 100%
+    linear-gradient(rgba(255, 0, 255, 0.5) 25%, 
+    rgba(255, 0, 255, 0.5) 50%, 
+    rgba(255, 0, 255, 0.5) 75%, 
+    rgba(255, 0, 255, 0.5) 100%
     ), 
     url("./assets/bubbles.png");
 }
@@ -132,10 +131,10 @@
 
 .orange {
   background-image: 
-    linear-gradient(rgba(243, 197, 136, 0.5) 25%, 
-    rgba(243, 197, 136, 0.75) 50%, 
-    rgba(243, 197, 136, 0.75) 75%, 
-    rgba(243, 197, 136, 0.5) 100%
+    linear-gradient(rgba(255, 153, 0, 0.5) 25%, 
+    rgba(255, 153, 0, 0.75) 50%, 
+    rgba(255, 153, 0, 0.75) 75%, 
+    rgba(255, 153, 0, 0.5) 100%
     ), 
     url("./assets/bubbles.png");
 }

@@ -73,8 +73,7 @@ const getAnimationDelay = useMemo(() => (index) => {
   ...getAnimationDelay(index)}}
           className={`
             ${getClassName(index)}
-            ${props.isAnimating ? classes.finishing : ""}
-            bubbles
+            ${props.isAnimating ? classes.finishing : "bubbles"}            
           `}
         ></div>
       ))}
