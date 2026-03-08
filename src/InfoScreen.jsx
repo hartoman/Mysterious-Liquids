@@ -2,7 +2,7 @@ import * as classes from "./LevelFinishedScreen.module.css";
 
 function InfoScreen(props) {
   return (
-    <div className="background">
+    <div className={`${classes.modalBody} ${classes.infoBackdrop}`}>
       <div className="content">
         <div style={{ display: "flex", flexDirection: "column" }}>
           <h1>Mysterious Liquids</h1>
@@ -31,11 +31,10 @@ function InfoScreen(props) {
             <li>You must give appropriate credit and indicate if changes were made.</li>
             <li>You must distribute under the same license as the original, **even if modified**</li>
           </ul>
-
             <button className={classes.backbutton} onClick={() => props.setInfoShown(false)}> Back</button>
         </div>
       </div>
-    </div>
+      </div>
   );
 }
 export default InfoScreen;

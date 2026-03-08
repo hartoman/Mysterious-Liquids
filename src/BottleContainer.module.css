@@ -8,11 +8,16 @@
   box-shadow: 0px 0px 20px darkmagenta;
   border-radius: 16px;
   padding: 1rem;
-  gap: 1rem;
+  width: fit-content;
+  gap: 2rem;
 }
 
 .bottle {
-  margin: 1vh 1vw 1vh 1vw;
+  width: fit-content;
+}
+
+.bottle:hover{
+  box-shadow: 0px 0px 15px limegreen;
 }
 @media screen and (orientation: portrait) {
   .container {

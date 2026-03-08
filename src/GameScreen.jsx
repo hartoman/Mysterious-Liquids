@@ -12,8 +12,6 @@ function GameScreen() {
 	const [levelFinished, setLevelFinished] = useState(true);
 	const [undoList, setUndoList] = useState(false);
 
-	console.log("state updated");
-
 	useEffect(() => {
 		if (
 			bottlesComplete?.length &&

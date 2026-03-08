@@ -51,6 +51,16 @@ function Bottle(props) {
     }
   }, [props.contents]);  // It's good to memoize the function, but contents is quite dynamic
 
+const getAnimationDelay = useMemo(() => (index) => {
+  if (!props.contents[index]?.uncovered) {
+    return {};
+  }
+  const randomDelay = Math.random() * -15;
+  return {
+    '--random-delay': `${randomDelay}s`
+  };
+}, [props.contents]);
+
   return (
     <div
       className={`${classes.bottleStyle} ${props.isComplete ? classes.complete : ""}`}
@@ -59,10 +69,12 @@ function Bottle(props) {
       {props.contents.map((_, index) => (
         <div
           key={`${bottleNum}-liquid-${index}`}
-          style={{ height: `100%`, zIndex: -1, maxHeight: `${maxChildHeight}px`, boxSizing: "border-box" }}
+          style={{ height: `100%`, zIndex: -1, maxHeight: `${maxChildHeight}px`,
+  ...getAnimationDelay(index)}}
           className={`
             ${getClassName(index)}
             ${props.isAnimating ? classes.finishing : ""}
+            bubbles
           `}
         ></div>
       ))}

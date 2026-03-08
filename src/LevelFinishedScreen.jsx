@@ -25,8 +25,9 @@ function LevelFinishedScreen(props) {
 
   return (
     <>
+    <div className={classes.backdrop}></div>
       {randomScreen && !infoShown &&(
-        <div className={classes.backdrop}>
+        
           <div className={classes.initialScreenContent}>
             <div style={{display:"grid"}}>
               <button className={classes.infoButton} onClick={()=>setInfoShown(true)}>?</button>
@@ -40,10 +41,9 @@ function LevelFinishedScreen(props) {
               </div>
             </div>
           </div>
-        </div>
+       
       )}
       {!randomScreen && !infoShown && (
-        <div className={classes.backdrop}>
           <div className={classes.modalBody}>
             <h2> Select Level</h2>
             <div className={classes.buttonContainer}>
@@ -84,8 +84,7 @@ function LevelFinishedScreen(props) {
                 <button onClick={() => props.passedProps.newGame()}> Play this level </button>
                 <button onClick={() => props.passedProps.setGameVars(functions.randomizeAll())}> Randomize </button>
               </div>
-            </div>
-          </div>
+            </div>          
         </div>
       )}
       {infoShown && <InfoScreen setInfoShown={setInfoShown} />
