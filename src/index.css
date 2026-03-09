@@ -155,7 +155,7 @@ button:not([disabled]):hover {
 			rgba(25, 32, 82, 1) 46%,
 			rgba(38, 11, 11, 1) 100%
 		),
-		url("../dist/assets/bubbles.png");
+		url("./assets/bubbles.png");
 }
 
 
