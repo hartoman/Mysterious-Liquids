@@ -10,7 +10,7 @@ function Bottle(props) {
     const updateMaxChildHeight = () => {
       if (bottleRef.current) {
         const bottleHeight = bottleRef.current.clientHeight; 
-        setMaxChildHeight(bottleHeight / props.maxCapacity); 
+        setMaxChildHeight(Math.floor(bottleHeight / props.maxCapacity)); 
       }
     };
 
@@ -55,7 +55,7 @@ const getAnimationDelay = useMemo(() => (index) => {
   if (!props.contents[index]?.uncovered) {
     return {};
   }
-  const randomDelay = Math.random() * -15;
+  const randomDelay = Math.floor(Math.random() * -15);
   return {
     '--random-delay': `${randomDelay}s`
   };
@@ -69,7 +69,7 @@ const getAnimationDelay = useMemo(() => (index) => {
       {props.contents.map((_, index) => (
         <div
           key={`${bottleNum}-liquid-${index}`}
-          style={{ height: `100%`, zIndex: -1, maxHeight: `${maxChildHeight}px`,
+          style={{ height: `100%`, maxHeight: `${maxChildHeight}px`,
   ...getAnimationDelay(index)}}
           className={`
             ${getClassName(index)}

@@ -38,6 +38,7 @@ html {
 
 * {
 	box-sizing: border-box !important;
+  user-select: none;
 }
 
 .background {
