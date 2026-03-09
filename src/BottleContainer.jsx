@@ -62,11 +62,9 @@ function BottleContainer(props) {
       }
       const isAlreadyComplete = props.bottlesComplete.includes(key);
       if (isAlreadyComplete) {
-        console.log("bottle is already complete");
         return;
       }
       if (props.bottleArray[key].length === 0 && selectedBottles[0] === -1) {
-        console.log("bottle is empty");
         return;
       }
 

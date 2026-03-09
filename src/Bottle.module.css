@@ -1,196 +1,236 @@
 .bottleStyle {
-  border: 3px solid rgba(255,255,255,0.2);
-  border-top: none;
-  border-radius: 8%;
-  background-color: black;
-  height: 100px;
-  width: 32px;
-  min-height: 12%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  position: relative;
-  z-index: 1;
-  background: linear-gradient(90deg, rgba(100, 100, 100, 0.5) 0%, rgba(0, 0, 0, 0.3) 60%, rgba(100, 100, 100, 0.5) 100%);  
+	border: 3px solid rgba(255, 255, 255, 0.2);
+	border-top: none;
+	border-radius: 8%;
+	background-color: black;
+	height: 100px;
+	width: 32px;
+	min-height: 12%;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	position: relative;
+	z-index: 1;
+	background: linear-gradient(
+		90deg,
+		rgba(100, 100, 100, 0.5) 0%,
+		rgba(0, 0, 0, 0.3) 60%,
+		rgba(100, 100, 100, 0.5) 100%
+	);
 }
-.bottleStyle:hover{
-  cursor: pointer;
+.bottleStyle:hover {
+	cursor: pointer;
 }
 
-.bottleStyle div {
-  width: 100%;
-  position: relative;
-  transition: max-height 0.3s ease-in;
+.bottleStyle div:not(.hidden) {
+	width: 100%;
+	position: relative;	
+  max-height: 1000px;
+	@starting-style {
+    max-height: 0 !important;
+	}
 }
+.bottleStyle div{
+	transition: all 0.3s ease-in;
+}
+
 
 .finishing {
-  animation: 0.25s linear 0s 3 running rainbow;
+	animation: 0.25s linear 0s 3 running rainbow;
 }
-.complete div{
-  opacity: 0.5;
-  background: lightgray !important;
-}
-
-.hidden {
-  background: black;
-  background: linear-gradient(90deg, rgba(100, 100, 100, 1) 0%, rgba(0, 0, 0, 1) 60%, rgba(100, 100, 100, 1) 100%);
-}
-
-.hidden:before {
-  position: absolute;
-  display: flex;
-  left: 37%;
-  color: white;
-  content: "?";
+.complete div {
+	opacity: 0.5;
+	background: lightgray !important;
 }
 
 .hidden {
-  background: black;
-  background: linear-gradient(90deg, rgba(100, 100, 100, 1) 0%, rgba(0, 0, 0, 1) 60%, rgba(100, 100, 100, 1) 100%);
+	background-image: linear-gradient(
+		90deg,
+		rgba(100, 100, 100, 1) 0%,
+		rgba(0, 0, 0, 1) 60%,
+		rgba(100, 100, 100, 1) 100%
+	);
 }
 
 .hidden:before {
-  position: absolute;
-  display: flex;
-  left: 37%;
-  color: white;
-  content: "?";
+	position: absolute;
+	display: flex;
+	left: 37%;
+	color: white;
+	content: "?";
 }
 
+.hidden {
+	background: black;
+	background: linear-gradient(
+		90deg,
+		rgba(100, 100, 100, 1) 0%,
+		rgba(0, 0, 0, 1) 60%,
+		rgba(100, 100, 100, 1) 100%
+	);
+}
+
+.hidden:before {
+	position: absolute;
+	display: flex;
+	left: 37%;
+	color: white;
+	content: "?";
+}
 
 .yellow {
-  background-image: 
-    linear-gradient(rgba(255, 255, 0, 0.5) 25%, 
-    rgba(255, 255, 0, 0.75) 50%, 
-    rgba(255, 255, 0, 0.75) 75%, 
-    rgba(255, 255, 0, 0.5) 100%
-    ), 
-    url("./assets/bubbles.png");
+	background-image:
+		linear-gradient(
+			rgba(255, 255, 0, 0.5) 25%,
+			rgba(255, 255, 0, 0.75) 50%,
+			rgba(255, 255, 0, 0.75) 75%,
+			rgba(255, 255, 0, 0.5) 100%
+		),
+		url("./assets/bubbles.png");
 }
 
 .green {
-  background-image: 
-    linear-gradient(rgba(90, 255, 64, 0.5) 25%, 
-    rgba(90, 255, 64, 0.75) 50%, 
-    rgba(90, 255, 64, 0.75) 75%, 
-    rgba(90, 255, 64, 0.5) 100%
-    ), 
-    url("./assets/bubbles.png");
+	background-image:
+		linear-gradient(
+			rgba(90, 255, 64, 0.5) 25%,
+			rgba(90, 255, 64, 0.75) 50%,
+			rgba(90, 255, 64, 0.75) 75%,
+			rgba(90, 255, 64, 0.5) 100%
+		),
+		url("./assets/bubbles.png");
 }
 
 .blue {
-  background-image: 
-    linear-gradient(rgba(0, 0, 255, 0.5) 25%, 
-    rgba(0, 0, 255, 0.75) 50%, 
-    rgba(0, 0, 255, 0.75) 75%, 
-    rgba(0, 0, 255, 0.5) 100%
-    ), 
-    url("./assets/bubbles.png");
+	background-image:
+		linear-gradient(
+			rgba(0, 0, 255, 0.5) 25%,
+			rgba(0, 0, 255, 0.75) 50%,
+			rgba(0, 0, 255, 0.75) 75%,
+			rgba(0, 0, 255, 0.5) 100%
+		),
+		url("./assets/bubbles.png");
 }
 
 .red {
-  background-image: 
-    linear-gradient(rgba(255, 0, 0, 0.5) 25%, 
-    rgba(255, 0, 0, 0.75) 50%, 
-    rgba(255, 0, 0, 0.75) 75%, 
-    rgba(255, 0, 0, 0.5) 100%
-    ), 
-    url("./assets/bubbles.png");
+	background-image:
+		linear-gradient(
+			rgba(255, 0, 0, 0.5) 25%,
+			rgba(255, 0, 0, 0.75) 50%,
+			rgba(255, 0, 0, 0.75) 75%,
+			rgba(255, 0, 0, 0.5) 100%
+		),
+		url("./assets/bubbles.png");
 }
 
 .purple {
-  background-image: 
-    linear-gradient(rgba(255, 0, 255, 0.5) 25%, 
-    rgba(255, 0, 255, 0.5) 50%, 
-    rgba(255, 0, 255, 0.5) 75%, 
-    rgba(255, 0, 255, 0.5) 100%
-    ), 
-    url("./assets/bubbles.png");
+	background-image:
+		linear-gradient(
+			rgba(255, 0, 255, 0.5) 25%,
+			rgba(255, 0, 255, 0.5) 50%,
+			rgba(255, 0, 255, 0.5) 75%,
+			rgba(255, 0, 255, 0.5) 100%
+		),
+		url("./assets/bubbles.png");
 }
 
 .turquoise {
-  background-image: 
-    linear-gradient(rgba(64, 224, 208, 0.5) 25%, 
-    rgba(64, 224, 208, 0.75) 50%, 
-    rgba(64, 224, 208, 0.75) 75%, 
-    rgba(64, 224, 208, 0.5) 100%
-    ), 
-    url("./assets/bubbles.png");
+	background-image:
+		linear-gradient(
+			rgba(64, 224, 208, 0.5) 25%,
+			rgba(64, 224, 208, 0.75) 50%,
+			rgba(64, 224, 208, 0.75) 75%,
+			rgba(64, 224, 208, 0.5) 100%
+		),
+		url("./assets/bubbles.png");
 }
 
 .white {
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.5) 25%, 
-    rgba(255, 255, 255, 0.75) 50%, 
-    rgba(255, 255, 255, 0.75) 75%, 
-    rgba(255, 255, 255, 0.5) 100%
-    ), 
-    url("./assets/bubbles.png");
+	background-image:
+		linear-gradient(
+			rgba(255, 255, 255, 0.5) 25%,
+			rgba(255, 255, 255, 0.75) 50%,
+			rgba(255, 255, 255, 0.75) 75%,
+			rgba(255, 255, 255, 0.5) 100%
+		),
+		url("./assets/bubbles.png");
 }
 
 .orange {
-  background-image: 
-    linear-gradient(rgba(255, 153, 0, 0.5) 25%, 
-    rgba(255, 153, 0, 0.75) 50%, 
-    rgba(255, 153, 0, 0.75) 75%, 
-    rgba(255, 153, 0, 0.5) 100%
-    ), 
-    url("./assets/bubbles.png");
+	background-image:
+		linear-gradient(
+			rgba(255, 153, 0, 0.5) 25%,
+			rgba(255, 153, 0, 0.75) 50%,
+			rgba(255, 153, 0, 0.75) 75%,
+			rgba(255, 153, 0, 0.5) 100%
+		),
+		url("./assets/bubbles.png");
 }
 
 @keyframes rainbow {
-  0% {
-    background: rgb(218, 13, 13);
-    background: linear-gradient(90deg, rgba(129, 72, 72, 1) 0%, rgba(200, 34, 34, 1) 60%, rgba(255, 200, 200, 1) 100%);
-  }
+	0% {
+		background: rgb(218, 13, 13);
+		background: linear-gradient(
+			90deg,
+			rgba(129, 72, 72, 1) 0%,
+			rgba(200, 34, 34, 1) 60%,
+			rgba(255, 200, 200, 1) 100%
+		);
+	}
 
-  20% {
-    background: rgb(255, 223, 0);
-    background: linear-gradient(
-      90deg,
-      rgba(220, 220, 150, 1) 0%,
-      rgba(200, 200, 0, 1) 60%,
-      rgba(255, 255, 180, 1) 100%
-    );
-  }
+	20% {
+		background: rgb(255, 223, 0);
+		background: linear-gradient(
+			90deg,
+			rgba(220, 220, 150, 1) 0%,
+			rgba(200, 200, 0, 1) 60%,
+			rgba(255, 255, 180, 1) 100%
+		);
+	}
 
-  40% {
-    background: yellow;
-  }
+	40% {
+		background: yellow;
+	}
 
-  60% {
-    background: rgb(26, 159, 44);
-    background: linear-gradient(90deg, rgba(75, 129, 75, 1) 0%, rgba(90, 201, 64, 1) 60%, rgba(180, 255, 180, 1) 100%);
-  }
+	60% {
+		background: rgb(26, 159, 44);
+		background: linear-gradient(
+			90deg,
+			rgba(75, 129, 75, 1) 0%,
+			rgba(90, 201, 64, 1) 60%,
+			rgba(180, 255, 180, 1) 100%
+		);
+	}
 
-  80% {
-    background: rgb(0, 72, 129);
-    background: linear-gradient(90deg, rgba(75, 72, 129, 1) 0%, rgba(60, 60, 200, 1) 60%, rgba(0, 255, 255, 1) 100%);
-  }
+	80% {
+		background: rgb(0, 72, 129);
+		background: linear-gradient(
+			90deg,
+			rgba(75, 72, 129, 1) 0%,
+			rgba(60, 60, 200, 1) 60%,
+			rgba(0, 255, 255, 1) 100%
+		);
+	}
 
-  100% {
-    background: rgb(240, 72, 255);
-    background: linear-gradient(
-      90deg,
-      rgba(100, 100, 130, 1) 0%,
-      rgba(240, 50, 255, 1) 60%,
-      rgba(180, 212, 255, 1) 100%
-    );
-  }
+	100% {
+		background: rgb(240, 72, 255);
+		background: linear-gradient(
+			90deg,
+			rgba(100, 100, 130, 1) 0%,
+			rgba(240, 50, 255, 1) 60%,
+			rgba(180, 212, 255, 1) 100%
+		);
+	}
 }
 
 @keyframes animateBackground {
-  0% {
-    background: radial-gradient(circle, #384354 30%, #53626f);
-  }
-  50% {
-    background: radial-gradient(circle, #2c3e50 30%, #34495e);
-  }
-  100% {
-    background: radial-gradient(circle, #384354 30%, #53626f);
-  }
+	0% {
+		background: radial-gradient(circle, #384354 30%, #53626f);
+	}
+	50% {
+		background: radial-gradient(circle, #2c3e50 30%, #34495e);
+	}
+	100% {
+		background: radial-gradient(circle, #384354 30%, #53626f);
+	}
 }
-
-
-
