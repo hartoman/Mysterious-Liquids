@@ -66,7 +66,7 @@
     rgba(255, 255, 0, 0.75) 75%, 
     rgba(255, 255, 0, 0.5) 100%
     ), 
-    url("./assets/bubbles.png");
+    url("../dist/assets/bubbles.png");
 }
 
 .green {
@@ -76,7 +76,7 @@
     rgba(90, 255, 64, 0.75) 75%, 
     rgba(90, 255, 64, 0.5) 100%
     ), 
-    url("./assets/bubbles.png");
+    url("../dist/assets/bubbles.png");
 }
 
 .blue {
@@ -86,7 +86,7 @@
     rgba(0, 0, 255, 0.75) 75%, 
     rgba(0, 0, 255, 0.5) 100%
     ), 
-    url("./assets/bubbles.png");
+    url("../dist/assets/bubbles.png");
 }
 
 .red {
@@ -96,7 +96,7 @@
     rgba(255, 0, 0, 0.75) 75%, 
     rgba(255, 0, 0, 0.5) 100%
     ), 
-    url("./assets/bubbles.png");
+    url("../dist/assets/bubbles.png");
 }
 
 .purple {
@@ -106,7 +106,7 @@
     rgba(255, 0, 255, 0.5) 75%, 
     rgba(255, 0, 255, 0.5) 100%
     ), 
-    url("./assets/bubbles.png");
+    url("../dist/assets/bubbles.png");
 }
 
 .turquoise {
@@ -116,7 +116,7 @@
     rgba(64, 224, 208, 0.75) 75%, 
     rgba(64, 224, 208, 0.5) 100%
     ), 
-    url("./assets/bubbles.png");
+    url("../dist/assets/bubbles.png");
 }
 
 .white {
@@ -126,7 +126,7 @@
     rgba(255, 255, 255, 0.75) 75%, 
     rgba(255, 255, 255, 0.5) 100%
     ), 
-    url("./assets/bubbles.png");
+    url("../dist/assets/bubbles.png");
 }
 
 .orange {
@@ -136,7 +136,7 @@
     rgba(255, 153, 0, 0.75) 75%, 
     rgba(255, 153, 0, 0.5) 100%
     ), 
-    url("./assets/bubbles.png");
+    url("../dist/assets/bubbles.png");
 }
 
 @keyframes rainbow {

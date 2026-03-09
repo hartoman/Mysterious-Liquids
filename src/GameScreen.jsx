@@ -67,6 +67,7 @@ function GameScreen() {
 			{levelFinished && <LevelFinishedScreen passedProps={passedProps} />}
 			{!levelFinished && (
 				<>
+				<div className={`backdrop bubbling`}></div>
 					<BottleContainer
 						key={levelFinished ? "finished" : "playing"}
 						bottleArray={bottleArray}

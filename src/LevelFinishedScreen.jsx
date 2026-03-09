@@ -27,7 +27,7 @@ function LevelFinishedScreen(props) {
 		<>
 			{randomScreen && !infoShown && (
 				<div>
-					<div className={classes.backdrop}></div>
+					<div className={`backdrop bubbling`}>
 					<div className={classes.initialScreenContent}>
 						<div style={{ display: "grid" }}>
 							<button className={classes.infoButton} onClick={() => setInfoShown(true)}>
@@ -43,9 +43,12 @@ function LevelFinishedScreen(props) {
 							</div>
 						</div>
 					</div>
+					</div>
 				</div>
 			)}
 			{!randomScreen && !infoShown && (
+				<div>
+				<div className={`backdrop bubbling`}></div>
 				<div className={classes.modalBody}>
 					<h2> Select Level</h2>
 					<div className={classes.buttonContainer}>
@@ -91,12 +94,14 @@ function LevelFinishedScreen(props) {
 						</div>
 					</div>
 				</div>
+				</div>
 			)}
 			{infoShown && (
-				<div>
-					<div className={classes.backdrop}></div>
+					<div className={`backdrop bubbling`}>
+
 					<InfoScreen setInfoShown={setInfoShown} />
-				</div>
+					</div>
+				
 			)}
 		</>
 	);
