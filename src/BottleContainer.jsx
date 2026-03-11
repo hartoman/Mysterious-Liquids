@@ -152,11 +152,9 @@ function BottleContainer(props) {
       {props.bottleArray.map((_, index) => (
         <div
           key={`bottle-${index}`}
-
           onClick={() => handleClick(index)}
           className={`${classes.bottle} 
-          ${index === selectedBottles[0] || index === selectedBottles[1] ? classes.selected : ""}
-
+       
           `}
         >
           <Bottle
@@ -165,6 +163,7 @@ function BottleContainer(props) {
             maxCapacity={BOTTLE_CAPACITY}
             isComplete={props.bottlesComplete.includes(index) ? true : false}
             isAnimating={isAnimating === index ? true : false}
+            isSelected={index === selectedBottles[0] || index === selectedBottles[1] }
           />
         </div>
       ))}

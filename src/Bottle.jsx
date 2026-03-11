@@ -15,9 +15,7 @@ function Bottle(props) {
     };
 
     updateMaxChildHeight(); // Initial call
-
     window.addEventListener('resize', updateMaxChildHeight);
-
     return () => {
       window.removeEventListener('resize', updateMaxChildHeight); 
     };
@@ -63,7 +61,7 @@ const getAnimationDelay = useMemo(() => (index) => {
 
   return (
     <div
-      className={`${classes.bottleStyle} ${props.isComplete ? classes.complete : ""}`}
+      className={`${classes.bottleStyle} ${props.isComplete ? classes.complete : ""} ${props.isSelected?classes.selected:""}`}
       ref={bottleRef}  
     >
       {props.contents.map((_, index) => (

@@ -94,7 +94,7 @@ button:not([disabled]):hover {
 }
 
 .bubbles {
-	background-blend-mode: multiply;
+	background-blend-mode: color;
 	animation: animated-bubbles 15s infinite linear;
 	background-size: 100% 200%;
 	background-position: center;

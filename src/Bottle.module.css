@@ -1,5 +1,5 @@
 .bottleStyle {
-	border: 3px solid rgba(255, 255, 255, 0.2);
+	border: 3px solid rgba(255, 255, 255, 0.4);
 	border-top: none;
 	border-radius: 8%;
 	background-color: black;
@@ -14,14 +14,15 @@
 	z-index: 1;
 	background: linear-gradient(
 		90deg,
-		rgba(100, 100, 100, 0.5) 0%,
+		rgba(100, 100, 100, 0.3) 0%,
 		rgba(0, 0, 0, 0.3) 60%,
-		rgba(100, 100, 100, 0.5) 100%
+		rgba(100, 100, 100, 0.3) 100%
 	);
 }
-.bottleStyle:hover {
-	cursor: pointer;
-}
+
+.bottleStyle.selected {
+  box-shadow: 0 0 25px white;
+ }
 
 .bottleStyle div{
 	width: 100%;
@@ -30,64 +31,35 @@
     max-height: 0 !important;
 	}
 }
-.bottleStyle div:not(.hidden) {
-
-}
 
 .bottleStyle div{
 	transition: all 0.2s ease !important;
+	transition-behavior: allow-discrete;
 }
 
 .finishing {
 	animation: 0.25s linear 0s 3 running rainbow;
 }
-.complete div {
-	opacity: 0.5;
-	background: lightgray !important;
+.complete{
+	background-image: url('./assets/cracks.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.complete div {	
+	background: rgba(255,255,255,0.2) !important;
 }
 
 .hidden {
 	background-image: linear-gradient(
-		90deg,
-		rgba(100, 100, 100, 1) 0%,
-		rgba(0, 0, 0, 1) 60%,
-		rgba(100, 100, 100, 1) 100%
-	);
-}
-
-.hidden:before {
-	position: absolute;
-	display: flex;
-	left: 37%;
-	color: white;
-	content: "?";
-}
-
-.hidden {
-	background: black;
-	background: linear-gradient(
-		90deg,
-		rgba(100, 100, 100, 1) 0%,
-		rgba(0, 0, 0, 1) 60%,
-		rgba(100, 100, 100, 1) 100%
-	);
-}
-
-.hidden:before {
-	position: absolute;
-	display: flex;
-	left: 37%;
-	color: white;
-	content: "?";
+		rgba(0, 0, 0, 1) 60%
+	),url("./assets/question-marks-lg.jpeg");
 }
 
 .yellow {
 	background-image:
 		linear-gradient(
-			rgba(255, 255, 0, 0.5) 25%,
-			rgba(255, 255, 0, 0.75) 50%,
-			rgba(255, 255, 0, 0.75) 75%,
-			rgba(255, 255, 0, 0.5) 100%
+			rgba(255, 255, 0, 0.8)
 		),
 		url("./assets/bubbles.png");
 }
@@ -95,10 +67,7 @@
 .green {
 	background-image:
 		linear-gradient(
-			rgba(90, 255, 64, 0.5) 25%,
-			rgba(90, 255, 64, 0.75) 50%,
-			rgba(90, 255, 64, 0.75) 75%,
-			rgba(90, 255, 64, 0.5) 100%
+			rgba(90, 255, 64, 1)
 		),
 		url("./assets/bubbles.png");
 }
@@ -106,10 +75,7 @@
 .blue {
 	background-image:
 		linear-gradient(
-			rgba(0, 0, 255, 0.5) 25%,
-			rgba(0, 0, 255, 0.75) 50%,
-			rgba(0, 0, 255, 0.75) 75%,
-			rgba(0, 0, 255, 0.5) 100%
+			rgba(0, 0, 255,1)
 		),
 		url("./assets/bubbles.png");
 }
@@ -117,10 +83,7 @@
 .red {
 	background-image:
 		linear-gradient(
-			rgba(255, 0, 0, 0.5) 25%,
-			rgba(255, 0, 0, 0.75) 50%,
-			rgba(255, 0, 0, 0.75) 75%,
-			rgba(255, 0, 0, 0.5) 100%
+			rgba(255, 0, 0, 1)
 		),
 		url("./assets/bubbles.png");
 }
@@ -128,10 +91,7 @@
 .purple {
 	background-image:
 		linear-gradient(
-			rgba(255, 0, 255, 0.5) 25%,
-			rgba(255, 0, 255, 0.5) 50%,
-			rgba(255, 0, 255, 0.5) 75%,
-			rgba(255, 0, 255, 0.5) 100%
+			rgba(255, 0, 255, 1)
 		),
 		url("./assets/bubbles.png");
 }
@@ -139,10 +99,7 @@
 .turquoise {
 	background-image:
 		linear-gradient(
-			rgba(64, 224, 208, 0.5) 25%,
-			rgba(64, 224, 208, 0.75) 50%,
-			rgba(64, 224, 208, 0.75) 75%,
-			rgba(64, 224, 208, 0.5) 100%
+			rgba(64, 224, 208, 1)
 		),
 		url("./assets/bubbles.png");
 }
@@ -150,10 +107,7 @@
 .white {
 	background-image:
 		linear-gradient(
-			rgba(255, 255, 255, 0.5) 25%,
-			rgba(255, 255, 255, 0.75) 50%,
-			rgba(255, 255, 255, 0.75) 75%,
-			rgba(255, 255, 255, 0.5) 100%
+			rgba(255, 255, 255, 1) 
 		),
 		url("./assets/bubbles.png");
 }
@@ -161,12 +115,15 @@
 .orange {
 	background-image:
 		linear-gradient(
-			rgba(255, 153, 0, 0.5) 25%,
-			rgba(255, 153, 0, 0.75) 50%,
-			rgba(255, 153, 0, 0.75) 75%,
-			rgba(255, 153, 0, 0.5) 100%
+			rgba(255, 153, 0, 0.8)
 		),
 		url("./assets/bubbles.png");
+}
+
+@media (hover: hover) {
+  .bottleStyle:hover{
+  box-shadow: 0px 0px 15px limegreen;
+}
 }
 
 @keyframes rainbow {
